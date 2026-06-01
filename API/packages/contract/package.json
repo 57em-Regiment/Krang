@@ -1,6 +1,6 @@
 {
   "name": "@57eme-regiment/krang-api-contract",
-  "version": "0.2.2",
+  "version": "0.3.5",
   "description": "Krang API contract — shared between server and consumers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

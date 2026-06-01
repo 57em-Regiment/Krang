@@ -12,6 +12,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "ignoreDeprecations": "6.0", // TODO : Fucking remove it before production
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],

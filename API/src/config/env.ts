@@ -7,12 +7,19 @@ const envSchema = z.object({
     .default('development'),
   PORT: z.coerce.number().default(3000),
   HOST: z.string().default('0.0.0.0'),
-  DATABASE_URL: z.url(),
-  RENENUTET_BASE_API: z.url(),
+
+  ALLOWED_HOST: z.string().optional(),
   CORS_ORIGINS: z
     .string()
     .default('*')
     .transform(val => (val === '*' ? '*' : val.split(',').map(s => s.trim()))),
+
+  //PostgresSQL
+  DATABASE_URL: z.url(),
+
+  //57regiment Services
+  WANSHITONG_SERVICE_URL: z.url(),
+  RENENUTET_SERVICE_URL: z.url(),
 });
 
 export const env = envSchema.parse(process.env);

@@ -1,4 +1,5 @@
 import { env } from '@/config/env';
+import { logger } from '@/config/logger';
 import { errorHandler } from '@/shared/errors/errorHandler';
 import cors from '@fastify/cors';
 import {
@@ -6,21 +7,32 @@ import {
   validatorCompiler,
 } from '@fastify/type-provider-zod';
 import Fastify from 'fastify';
-import { itemRoutes } from './controller/Item/item.route';
-import { locationRoutes } from './controller/Location/location.route';
-import { maintenanceRoutes } from './controller/Maintenance/maintenance.route';
-import { regionRoutes } from './controller/Region/region.route';
-import { townRoutes } from './controller/Town/town.route';
+import { itemRoutes } from './services/item/item.route';
+import { locationRoutes } from './services/location/location.route';
+import { maintenanceRoutes } from './services/maintenance/maintenance.route';
+import { regionRoutes } from './services/region/region.route';
+import { townRoutes } from './services/town/town.route';
 
 export function buildApp() {
-  const app = Fastify({
-    logger: {
-      level: env.NODE_ENV === 'production' ? 'info' : 'debug',
-    },
+  const app = Fastify({ logger: { level: 'error' } });
+
+  app.addHook('onRequest', (req, _reply, done) => {
+    logger.info(
+      `→ reqId:"${req.id}" ${req.method} ${req.url} from:${req.host} user:${req.user ? req.user.username : 'no user'} msg:"incoming request"`,
+    );
+    done();
+  });
+
+  app.addHook('onResponse', (req, reply, done) => {
+    logger.info(
+      `← reqId:"${req.id}" ${req.method} ${req.url} ${reply.statusCode} ${reply.elapsedTime.toFixed(2)}ms msg:"request completed"`,
+    );
+    done();
   });
 
   app.register(cors, {
     origin: env.CORS_ORIGINS,
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   });
 

@@ -1,3 +1,4 @@
+import { logger } from '@/config/logger';
 import { Prisma } from '@/generated/client';
 import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
 import { ZodError } from 'zod';
@@ -9,7 +10,7 @@ export function errorHandler(
   req: FastifyRequest,
   reply: FastifyReply,
 ) {
-  req.log.error(error);
+  logger.error(`${req.id} ${req.method} ${req.url}`, error);
   if (error instanceof AppError) {
     return reply.status(error.statusCode).send({
       error: error.code ?? error.name,
