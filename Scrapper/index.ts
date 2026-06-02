@@ -5,14 +5,13 @@ import { scrapRegions } from './src/regions.js';
 import { scrapTowns } from './src/towns.js';
 import { scrapWiki } from './src/wiki.js';
 
-
 async function main() {
-	const api = createApiClient(process.env.API_BASE_URL ?? 'http://localhost:3000');
+  const api = createApiClient('http://krang.57regiment.local:3002');
 
-	const regions = await scrapRegions(api);
-	await scrapTowns(api, regions);
-	await scrapLocations(api, regions);
-	await scrapWiki(api);
+  const regions = await scrapRegions(api);
+  await scrapTowns(api, regions);
+  await scrapLocations(api, regions);
+  await scrapWiki(api);
 }
 
 main();

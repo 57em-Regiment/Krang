@@ -17,6 +17,9 @@ importers:
       '@57eme-regiment/krang-api-contract':
         specifier: workspace:*
         version: link:packages/contract
+      '@57eme-regiment/renenutet-api-contract':
+        specifier: ^0.3.2
+        version: 0.3.2(@types/node@22.19.19)(zod@4.4.3)
       '@fastify/cors':
         specifier: ^11.2.0
         version: 11.2.0
@@ -29,6 +32,9 @@ importers:
       '@prisma/client':
         specifier: ^7.8.0
         version: 7.8.0(prisma@7.8.0(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.9.3))(typescript@5.9.3)
+      '@ts-rest/core':
+        specifier: 3.53.0-rc.1
+        version: 3.53.0-rc.1(@types/node@22.19.19)
       fastify:
         specifier: ^5.8.5
         version: 5.8.5
@@ -89,6 +95,11 @@ packages:
     resolution: {integrity: sha512-GQzbAHr+hpQ9BfXW7XIr8ZxJYTFWN/iQKg5N9AUuWubtFgS+CnNHiDR3z/YWqKqqqrb2GxayShq/Afxxlx9SoQ==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-server/1.5.0/ea866b2ee74575760711421b9a70a6d3db2f4e40}
     peerDependencies:
       fastify: '>=5'
+
+  '@57eme-regiment/renenutet-api-contract@0.3.2':
+    resolution: {integrity: sha512-4oU0S1t9D4DsdKu3QJSO6Qfv+ci0w4XyvWKqfcodgpNadAW9Iy6AZtgojVt8H+Bs+1yx2glOpMhwr0oB167Uig==, tarball: https://npm.pkg.github.com/download/@57eme-Regiment/renenutet-api-contract/0.3.2/babab422be323fa2e02a5708964966619f7ee489}
+    peerDependencies:
+      zod: '>=3'
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -1071,6 +1082,13 @@ snapshots:
     dependencies:
       '@57eme-regiment/auth-contracts': 1.5.0(@types/node@22.19.19)
       fastify: 5.8.5
+    transitivePeerDependencies:
+      - '@types/node'
+
+  '@57eme-regiment/renenutet-api-contract@0.3.2(@types/node@22.19.19)(zod@4.4.3)':
+    dependencies:
+      '@ts-rest/core': 3.53.0-rc.1(@types/node@22.19.19)
+      zod: 4.4.3
     transitivePeerDependencies:
       - '@types/node'
 

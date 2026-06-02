@@ -4,6 +4,8 @@ import { ItemService } from '@/services/item/item.service';
 import { LocationController } from '@/services/location/location.controller';
 import { LocationRepository } from '@/services/location/location.repository';
 import { LocationService } from '@/services/location/location.service';
+import { MaintenanceController } from '@/services/maintenance/maintenance.controller';
+import { MaintenanceService } from '@/services/maintenance/maintenance.service';
 import { RegionController } from '@/services/region/region.controller';
 import { RegionRepository } from '@/services/region/region.repository';
 import { RegionService } from '@/services/region/region.service';
@@ -31,5 +33,8 @@ container.registerSingleton(TownController);
 container.registerSingleton(LocationRepository);
 container.registerSingleton(LocationService);
 container.registerSingleton(LocationController);
+
+container.registerSingleton(MaintenanceService);
+container.registerSingleton(MaintenanceController);
 
 export { container };

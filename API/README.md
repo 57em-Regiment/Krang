@@ -13,7 +13,7 @@ The API contract package provides fully typed schemas and ts-rest contracts for 
 1. Add a `.npmrc` at the root of your project:
 
 ```
-@57em-regiment:registry=https://npm.pkg.github.com
+@57eme-regiment:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=GITHUB_TOKEN
 ```
 
