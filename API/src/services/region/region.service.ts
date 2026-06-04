@@ -1,6 +1,6 @@
 import { Region } from '@/generated/client';
 import { RegionRepository } from '@/services/region/region.repository';
-import { AppError } from '@/shared/errors/appError';
+import { AppError } from '@57eme-regiment/nabu-errors';
 import { CreateRegion, UpdateRegion } from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
 

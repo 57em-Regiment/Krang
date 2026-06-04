@@ -1,6 +1,6 @@
 import { Item } from '@/generated/client';
 import { ItemRepository } from '@/services/item/item.repository';
-import { AppError } from '@/shared/errors/appError';
+import { AppError } from '@57eme-regiment/nabu-errors';
 import { CreateItem, UpdateItem } from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
 

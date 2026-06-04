@@ -1,6 +1,6 @@
 import { env } from '@/config/env';
 import { logger } from '@/config/logger';
-import { errorHandler } from '@/shared/errors/errorHandler';
+import { createErrorHandler } from '@57eme-regiment/nabu-errors';
 import cors from '@fastify/cors';
 import {
   serializerCompiler,
@@ -38,7 +38,7 @@ export function buildApp() {
 
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
-  app.setErrorHandler(errorHandler);
+  app.setErrorHandler(createErrorHandler(logger));
 
   app.get('/health', async () => ({
     status: 'ok',

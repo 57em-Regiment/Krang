@@ -1,6 +1,6 @@
 import { Location } from '@/generated/client';
 import { LocationRepository } from '@/services/location/location.repository';
-import { AppError } from '@/shared/errors/appError';
+import { AppError } from '@57eme-regiment/nabu-errors';
 import {
   CreateLocation,
   UpdateLocation,
