@@ -17,6 +17,15 @@ importers:
       '@57eme-regiment/krang-api-contract':
         specifier: workspace:*
         version: link:packages/contract
+      '@57eme-regiment/nabu-errors':
+        specifier: link:../../Krang/nabu/packages/errors
+        version: link:../nabu/packages/errors
+      '@57eme-regiment/nabu-fastify':
+        specifier: link:../../Krang/nabu/packages/fastify
+        version: link:../nabu/packages/fastify
+      '@57eme-regiment/nabu-logger':
+        specifier: link:../../Krang/nabu/packages/logger
+        version: link:../nabu/packages/logger
       '@57eme-regiment/renenutet-api-contract':
         specifier: ^0.3.2
         version: 0.3.2(@types/node@22.19.19)(zod@4.4.3)
