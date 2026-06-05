@@ -1,20 +1,13 @@
 import { container } from '@/infrastructure/container';
+import { maintenanceContract } from '@57eme-regiment/krang-api-contract';
+import { declareRoute } from '@57eme-regiment/nabu-fastify';
 import { ZodTypeProvider } from '@fastify/type-provider-zod';
 import type { FastifyInstance } from 'fastify';
-import { z } from 'zod';
 import { MaintenanceController } from './maintenance.controller';
 
 export async function maintenanceRoutes(app: FastifyInstance) {
   const ctrl = container.resolve(MaintenanceController);
   const server = app.withTypeProvider<ZodTypeProvider>();
 
-  server.post(
-    '/',
-    {
-      schema: {
-        response: { 200: z.undefined() },
-      },
-    },
-    ctrl.renenutet.bind(ctrl),
-  );
+  declareRoute(server, maintenanceContract.renenutet, ctrl.renenutet.bind(ctrl));
 }

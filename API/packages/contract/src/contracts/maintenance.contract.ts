@@ -7,10 +7,12 @@ export const maintenanceContract = c.router({
   renenutet: {
     method: 'POST',
     path: '/api/maintenance',
-    summary: 'Synchro Krang & Renenutet',
+    body: c.noBody(),
+    responses: { 200: z.null() },
+    summary: 'Synchro Krang → Renenutet',
     description:
-      'Triggers a full synchronisation between Krang and Renenutet: pushes all locations and items by ID to the Renenutet API.',
-    body: z.undefined(),
-    responses: { 200: z.undefined() },
+      'Déclenche une synchronisation complète entre Krang et Renenutet : ' +
+      'pousse toutes les localisations et items par ID vers l\'API Renenutet.',
+    metadata: { tags: ['Maintenance'] },
   },
 });

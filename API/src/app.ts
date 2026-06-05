@@ -45,11 +45,11 @@ export function buildApp() {
     timestamp: new Date().toISOString(),
   }));
 
-  app.register(itemRoutes, { prefix: '/api/items' });
-  app.register(regionRoutes, { prefix: '/api/regions' });
-  app.register(townRoutes, { prefix: '/api/towns' });
-  app.register(locationRoutes, { prefix: '/api/locations' });
-  app.register(maintenanceRoutes, { prefix: '/api/maintenance' });
+  app.register(itemRoutes);
+  app.register(regionRoutes);
+  app.register(townRoutes);
+  app.register(locationRoutes);
+  app.register(maintenanceRoutes);
 
   return app;
 }
