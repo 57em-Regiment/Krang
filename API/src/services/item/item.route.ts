@@ -1,6 +1,4 @@
 import { container } from '@/infrastructure/container';
-import { PERMISSIONS } from '@57eme-regiment/auth-contracts';
-import { requirePermission } from '@57eme-regiment/auth-server';
 import { itemContract } from '@57eme-regiment/krang-api-contract';
 import { declareRoute } from '@57eme-regiment/nabu-fastify';
 import { ZodTypeProvider } from '@fastify/type-provider-zod';
@@ -12,7 +10,7 @@ export async function itemRoutes(app: FastifyInstance) {
   const server = app.withTypeProvider<ZodTypeProvider>();
 
   declareRoute(server, itemContract.getAll, ctrl.getAll.bind(ctrl), {
-    preHandler: requirePermission(PERMISSIONS.KRANG_ITEM_READ),
+    // preHandler: requirePermission(PERMISSIONS.KRANG_ITEM_READ),
   });
   declareRoute(server, itemContract.getById, ctrl.getById.bind(ctrl));
   declareRoute(server, itemContract.create, ctrl.create.bind(ctrl));

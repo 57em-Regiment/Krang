@@ -16,6 +16,7 @@ export const ItemSchema = z.object({
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });
+export type Item = z.infer<typeof ItemSchema>;
 
 export const createItemSchema = z.object({
   name: z.string(),
@@ -36,7 +37,6 @@ export const itemParamsSchema = z.object({
   id: z.uuid(),
 });
 
-export type Item = z.infer<typeof ItemSchema>;
 export type CreateItem = z.infer<typeof createItemSchema>;
 export type UpdateItem = z.infer<typeof updateItemSchema>;
 export type ItemParams = z.infer<typeof itemParamsSchema>;

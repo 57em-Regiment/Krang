@@ -1,3 +1,4 @@
+import '@57eme-regiment/auth-server';
 import { env } from '@/config/env';
 import { logger } from '@/config/logger';
 import { createErrorHandler } from '@57eme-regiment/nabu-errors';
