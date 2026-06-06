@@ -1,15 +1,22 @@
-import { Location } from '@/generated/client';
 import { LocationRepository } from '@/services/location/location.repository';
-import { AppError } from '@57eme-regiment/nabu-errors';
 import {
   CreateLocation,
+  Location,
   UpdateLocation,
 } from '@57eme-regiment/krang-api-contract';
+import { AppError } from '@57eme-regiment/nabu-errors';
+import { LocationNames } from 'packages/contract/dist';
 import { injectable } from 'tsyringe';
+import { RegionService } from '../region/region.service';
+import { TownService } from '../town/town.service';
 
 @injectable()
 export class LocationService {
-  constructor(private readonly locationRepository: LocationRepository) {}
+  constructor(
+    private readonly locationRepository: LocationRepository,
+    private readonly townService: TownService,
+    private readonly regionService: RegionService,
+  ) {}
 
   async getAll(): Promise<Location[]> {
     return this.locationRepository.findAll();
@@ -20,6 +27,17 @@ export class LocationService {
     if (!location)
       throw new AppError('Location not found', 404, 'LOCATION_NOT_FOUND');
     return location;
+  }
+  async getNames(id: string): Promise<LocationNames> {
+    const location = await this.locationRepository.findById(id);
+    if (!location)
+      throw new AppError('Location not found', 404, 'LOCATION_NOT_FOUND');
+
+    const region = await this.regionService.getById(location.regionId);
+
+    const town = await this.townService.getById(location.townId);
+
+    return { ...location, region: { ...region }, town: { ...town } };
   }
 
   async create(data: CreateLocation): Promise<Location> {

@@ -11,6 +11,7 @@ export async function locationRoutes(app: FastifyInstance) {
 
   declareRoute(server, locationContract.getAll, ctrl.getAll.bind(ctrl));
   declareRoute(server, locationContract.getById, ctrl.getById.bind(ctrl));
+  declareRoute(server, locationContract.getNames, ctrl.getNames.bind(ctrl));
   declareRoute(server, locationContract.create, ctrl.create.bind(ctrl));
   declareRoute(server, locationContract.createRange, ctrl.createRange.bind(ctrl));
   declareRoute(server, locationContract.upsertRange, ctrl.upsertRange.bind(ctrl));

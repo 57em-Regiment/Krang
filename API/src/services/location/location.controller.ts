@@ -23,6 +23,13 @@ export class LocationController {
     const location = await this.locationService.getById(req.params.id);
     return reply.send(location);
   }
+  async getNames(
+    req: FastifyRequest<{ Params: LocationParams }>,
+    reply: FastifyReply,
+  ) {
+    const location = await this.locationService.getNames(req.params.id);
+    return reply.send(location);
+  }
 
   async create(
     req: FastifyRequest<{ Body: CreateLocation }>,

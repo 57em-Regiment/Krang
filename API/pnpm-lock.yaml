@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@57eme-regiment/auth-contracts':
-        specifier: ^1.5.0
-        version: 1.5.0(@types/node@22.19.19)
+        specifier: link:../../wan-shi-tong/packages/auth-contracts
+        version: link:../../wan-shi-tong/packages/auth-contracts
       '@57eme-regiment/auth-server':
-        specifier: ^1.5.0
-        version: 1.5.0(@types/node@22.19.19)(fastify@5.8.5)
+        specifier: link:../../wan-shi-tong/packages/auth-server
+        version: link:../../wan-shi-tong/packages/auth-server
       '@57eme-regiment/krang-api-contract':
         specifier: workspace:*
         version: link:packages/contract
@@ -27,11 +27,14 @@ importers:
         specifier: link:../../Krang/nabu/packages/logger
         version: link:../nabu/packages/logger
       '@57eme-regiment/renenutet-api-contract':
-        specifier: ^0.3.2
-        version: 0.3.2(@types/node@22.19.19)(zod@4.4.3)
+        specifier: link:../../Renenutet/packages/contract
+        version: link:../../Renenutet/packages/contract
       '@fastify/cors':
         specifier: ^11.2.0
         version: 11.2.0
+      '@fastify/swagger':
+        specifier: ^9.7.0
+        version: 9.7.0
       '@fastify/type-provider-zod':
         specifier: ^1.0.0
         version: 1.0.0(@fastify/swagger@9.7.0)(fastify@5.8.5)(openapi-types@12.1.3)(zod@4.4.3)
@@ -41,6 +44,9 @@ importers:
       '@prisma/client':
         specifier: ^7.8.0
         version: 7.8.0(prisma@7.8.0(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.9.3))(typescript@5.9.3)
+      '@scalar/fastify-api-reference':
+        specifier: ^1.58.0
+        version: 1.58.0
       '@ts-rest/core':
         specifier: 3.53.0-rc.1
         version: 3.53.0-rc.1(@types/node@22.19.19)
@@ -96,19 +102,6 @@ importers:
         version: 5.9.3
 
 packages:
-
-  '@57eme-regiment/auth-contracts@1.5.0':
-    resolution: {integrity: sha512-CCz9OZ8F3AAzyMmYVS1q38HaiMsRtwIzBAn9yONJMr+F/AAiT+sL1mRFIkP4oWO+6grthTF2AJfVy22+B42eEg==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.5.0/99e39a228483601e2b3c2ccfd4a816b97081392f}
-
-  '@57eme-regiment/auth-server@1.5.0':
-    resolution: {integrity: sha512-GQzbAHr+hpQ9BfXW7XIr8ZxJYTFWN/iQKg5N9AUuWubtFgS+CnNHiDR3z/YWqKqqqrb2GxayShq/Afxxlx9SoQ==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-server/1.5.0/ea866b2ee74575760711421b9a70a6d3db2f4e40}
-    peerDependencies:
-      fastify: '>=5'
-
-  '@57eme-regiment/renenutet-api-contract@0.3.2':
-    resolution: {integrity: sha512-4oU0S1t9D4DsdKu3QJSO6Qfv+ci0w4XyvWKqfcodgpNadAW9Iy6AZtgojVt8H+Bs+1yx2glOpMhwr0oB167Uig==, tarball: https://npm.pkg.github.com/download/@57eme-Regiment/renenutet-api-contract/0.3.2/babab422be323fa2e02a5708964966619f7ee489}
-    peerDependencies:
-      zod: '>=3'
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -319,6 +312,46 @@ packages:
       '@types/react':
         optional: true
 
+  '@scalar/client-side-rendering@0.1.13':
+    resolution: {integrity: sha512-p8V4HgEWjaCpqsnhclg1pTfjE9JA0AWRr0ocBQHexoHo+pqnSs1d83Mv9rjH7R0FZJrlCSandZZeY3DMX2gYXQ==}
+    engines: {node: '>=22'}
+
+  '@scalar/fastify-api-reference@1.58.0':
+    resolution: {integrity: sha512-1/WRYcKxfF9b7oZ5vUHdbfkrUbnoxM7sXZO+Rj98S9XGCSg8ayjnEusjRDI947dZvY7fiGtv5fEapTzo68EUCQ==}
+    engines: {node: '>=22'}
+
+  '@scalar/helpers@0.8.1':
+    resolution: {integrity: sha512-yuiuBCadP5bjAnIv23QvifVN/NaMi9xBF6b8Wdk4QOzwzLPJmp699MAdf33J0A5i2qKcvnu32iz/VkEJmQRe5g==}
+    engines: {node: '>=22'}
+
+  '@scalar/json-magic@0.12.15':
+    resolution: {integrity: sha512-ZYgdYZ0jSZXQeyhG2lJ20FjzvKsaDRXk4bPguF/Ytl2nGBh9a6RIIr9NvVy4zAD67a/ahm+xipXlfoR1KtB5fg==}
+    engines: {node: '>=22'}
+
+  '@scalar/openapi-parser@0.28.6':
+    resolution: {integrity: sha512-gCl4r+rpmO+CKfwmmwI+GJVFhuNut7e6beUcD/xazanH4epkLT7V9ZgMv9YKbUBE73fkrOv6NJympeEGiU8aUw==}
+    engines: {node: '>=22'}
+
+  '@scalar/openapi-types@0.9.1':
+    resolution: {integrity: sha512-gkGhSkxSzADaBiNg+ZAbJuwj+ZUmzP2Pg9CWZ7ZP+0fck2WjPeDDM7aAbouAm0aQQMF9xBjSPXSA9a/qTHYaTw==}
+    engines: {node: '>=22'}
+
+  '@scalar/openapi-upgrader@0.2.9':
+    resolution: {integrity: sha512-D5b0rGLLZgmkO9mdW2j/ND1KBlH1u3RCpr87HPxv9P9ZSr6PtM5iLqFOJq0ACiaHjY2mikCrxgDmnUEhTzRpHQ==}
+    engines: {node: '>=22'}
+
+  '@scalar/schemas@0.3.3':
+    resolution: {integrity: sha512-qDcgFu6ta5Z90L9D2P6DFKzYesU+FW5+m55SGmdI4iRMRCwj5umHpec2Y2W/SJcCF6bbUZawMxuOH2Ja6rUNpQ==}
+    engines: {node: '>=22'}
+
+  '@scalar/types@0.12.3':
+    resolution: {integrity: sha512-7zaXafbgTFmsJ/9AwYeExUWzXoZNyKOL0SEVAUWRaOndcjxpFCtwzuPrc1elMEWdHopWbY1Qe5pWKbE2aqG2HA==}
+    engines: {node: '>=22'}
+
+  '@scalar/validation@0.6.0':
+    resolution: {integrity: sha512-tpmmG+/xRE2Kn9RpflU3AIyZv08v10+E1ZrJCx7z6+/91zHVxy0M73kC1LT4/8PbYNt85ywyC8+n+D99JdMcGA==}
+    engines: {node: '>=20'}
+
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
@@ -368,6 +401,14 @@ packages:
     resolution: {integrity: sha512-UVJyE9MttOsBQIDKw1skb9nAwQuR5wuGD3+82K6JgJlm/Y+KI92oNsMNGZCYdDsVtRHSak0pcV5Dno5+4jh9sw==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+
+  ajv-draft-04@1.0.0:
+    resolution: {integrity: sha512-mv00Te6nmYbRp5DCwclxtt7yV/joXJPGS7nM+97GdxvuttCOfgI3K4U25zboyeX0O+myI8ERluxQe5wljMmVIw==}
+    peerDependencies:
+      ajv: ^8.5.0
+    peerDependenciesMeta:
+      ajv:
+        optional: true
 
   ajv-formats@3.0.1:
     resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
@@ -533,6 +574,9 @@ packages:
   fast-uri@3.1.2:
     resolution: {integrity: sha512-rVjf7ArG3LTk+FS6Yw81V1DLuZl1bRbNrev6Tmd/9RaroeeRRJhAt7jg/6YFxbvAQXUCavSoZhPPj6oOx+5KjQ==}
 
+  fastify-plugin@4.5.1:
+    resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
+
   fastify-plugin@5.1.0:
     resolution: {integrity: sha512-FAIDA8eovSt5qcDgcBvDuX/v0Cjz0ohGhENZ/wpc3y+oZCY2afZ9Baqql3g/lC+OHRnciQol4ww7tuthOb9idw==}
 
@@ -574,6 +618,9 @@ packages:
   giget@3.2.0:
     resolution: {integrity: sha512-GvHTWcykIR/fP8cj8dMpuMMkvaeJfPvYnhq0oW+chSeIr+ldX21ifU2Ms6KBoyKZQZmVaUAAhQ2EZ68KJF8a7A==}
     hasBin: true
+
+  github-slugger@2.0.0:
+    resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
 
   glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
@@ -663,6 +710,14 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
+  jsonpointer@5.0.1:
+    resolution: {integrity: sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==}
+    engines: {node: '>=0.10.0'}
+
+  leven@4.1.0:
+    resolution: {integrity: sha512-KZ9W9nWDT7rF7Dazg8xyLHGLrmpgq2nVNFUckhqdW3szVP6YhCpp/RAnpmVExA9JvrMynjwSLVrEj3AepHR6ew==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
   light-my-request@6.6.0:
     resolution: {integrity: sha512-CHYbu8RtboSIoVsHZ6Ye4cj4Aw/yg2oAFimlF7mNvfDV192LR7nDiKtSIfCuLT7KokPSTn/9kfVLm5OGN0A28A==}
 
@@ -697,6 +752,11 @@ packages:
   named-placeholders@1.1.6:
     resolution: {integrity: sha512-Tz09sEL2EEuv5fFowm419c1+a/jSMiBjI9gHxVLrVdbUkkNUUfjsVYs9pVZu5oCon/kmRh9TfLEObFtkVxmY0w==}
     engines: {node: '>=8.0.0'}
+
+  nanoid@5.1.11:
+    resolution: {integrity: sha512-v+KEsUv2ps74PaSKv0gHTxTCgMXOIfBEbaqa6w6ISIGC7ZsvHN4N9oJ8d4cmf0n5oTzQz2SLmThbQWhjd/8eKg==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -973,6 +1033,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
+  tagged-tag@1.0.0:
+    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
+    engines: {node: '>=20'}
+
   thread-stream@4.2.0:
     resolution: {integrity: sha512-e2zZ96wSChazBsbENf/Pcm/4swHt2cEKQ92rhUjkL9GCKiTDJIaTBenjE/m9DXi0QBmTMDkFDdOomUy20A1tDQ==}
     engines: {node: '>=20'}
@@ -1032,6 +1096,10 @@ packages:
     resolution: {integrity: sha512-axr3IdNuVIxnaK5XGEUFTu3YmAQ6lllgrvqfEoR16g/HGnYY/6We4oWENtAnzK6/LpJ2ur9PAb80RBt7/U4ugw==}
     engines: {node: '>= 6.0.0'}
 
+  type-fest@5.7.0:
+    resolution: {integrity: sha512-1URUxUqfHFM1c+zfSPsa3gnkO7Aq21qyH75SIduNYz4SzY964rn1X2vCMQaHSHhktiw+0kPa2iyb6PUpXqB6Vg==}
+    engines: {node: '>=20'}
+
   typescript@5.9.3:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
@@ -1079,27 +1147,6 @@ packages:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
 snapshots:
-
-  '@57eme-regiment/auth-contracts@1.5.0(@types/node@22.19.19)':
-    dependencies:
-      '@ts-rest/core': 3.53.0-rc.1(@types/node@22.19.19)
-      zod: 4.4.3
-    transitivePeerDependencies:
-      - '@types/node'
-
-  '@57eme-regiment/auth-server@1.5.0(@types/node@22.19.19)(fastify@5.8.5)':
-    dependencies:
-      '@57eme-regiment/auth-contracts': 1.5.0(@types/node@22.19.19)
-      fastify: 5.8.5
-    transitivePeerDependencies:
-      - '@types/node'
-
-  '@57eme-regiment/renenutet-api-contract@0.3.2(@types/node@22.19.19)(zod@4.4.3)':
-    dependencies:
-      '@ts-rest/core': 3.53.0-rc.1(@types/node@22.19.19)
-      zod: 4.4.3
-    transitivePeerDependencies:
-      - '@types/node'
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -1331,6 +1378,61 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.15
 
+  '@scalar/client-side-rendering@0.1.13':
+    dependencies:
+      '@scalar/schemas': 0.3.3
+      '@scalar/types': 0.12.3
+      '@scalar/validation': 0.6.0
+
+  '@scalar/fastify-api-reference@1.58.0':
+    dependencies:
+      '@scalar/client-side-rendering': 0.1.13
+      '@scalar/openapi-parser': 0.28.6
+      '@scalar/openapi-types': 0.9.1
+      fastify-plugin: 4.5.1
+      github-slugger: 2.0.0
+
+  '@scalar/helpers@0.8.1': {}
+
+  '@scalar/json-magic@0.12.15':
+    dependencies:
+      '@scalar/helpers': 0.8.1
+      pathe: 2.0.3
+      yaml: 2.9.0
+
+  '@scalar/openapi-parser@0.28.6':
+    dependencies:
+      '@scalar/helpers': 0.8.1
+      '@scalar/json-magic': 0.12.15
+      '@scalar/openapi-types': 0.9.1
+      '@scalar/openapi-upgrader': 0.2.9
+      ajv: 8.20.0
+      ajv-draft-04: 1.0.0(ajv@8.20.0)
+      ajv-formats: 3.0.1(ajv@8.20.0)
+      jsonpointer: 5.0.1
+      leven: 4.1.0
+      yaml: 2.9.0
+
+  '@scalar/openapi-types@0.9.1': {}
+
+  '@scalar/openapi-upgrader@0.2.9':
+    dependencies:
+      '@scalar/openapi-types': 0.9.1
+
+  '@scalar/schemas@0.3.3':
+    dependencies:
+      '@scalar/helpers': 0.8.1
+      '@scalar/validation': 0.6.0
+
+  '@scalar/types@0.12.3':
+    dependencies:
+      '@scalar/helpers': 0.8.1
+      nanoid: 5.1.11
+      type-fest: 5.7.0
+      zod: 4.4.3
+
+  '@scalar/validation@0.6.0': {}
+
   '@standard-schema/spec@1.1.0': {}
 
   '@ts-rest/core@3.53.0-rc.1(@types/node@22.19.19)':
@@ -1370,6 +1472,10 @@ snapshots:
       acorn: 8.16.0
 
   acorn@8.16.0: {}
+
+  ajv-draft-04@1.0.0(ajv@8.20.0):
+    optionalDependencies:
+      ajv: 8.20.0
 
   ajv-formats@3.0.1(ajv@8.20.0):
     optionalDependencies:
@@ -1524,6 +1630,8 @@ snapshots:
 
   fast-uri@3.1.2: {}
 
+  fastify-plugin@4.5.1: {}
+
   fastify-plugin@5.1.0: {}
 
   fastify@5.8.5:
@@ -1577,6 +1685,8 @@ snapshots:
   get-port-please@3.2.0: {}
 
   giget@3.2.0: {}
+
+  github-slugger@2.0.0: {}
 
   glob-parent@5.1.2:
     dependencies:
@@ -1656,6 +1766,10 @@ snapshots:
 
   json5@2.2.3: {}
 
+  jsonpointer@5.0.1: {}
+
+  leven@4.1.0: {}
+
   light-my-request@6.6.0:
     dependencies:
       cookie: 1.1.1
@@ -1693,6 +1807,8 @@ snapshots:
   named-placeholders@1.1.6:
     dependencies:
       lru.min: 1.1.4
+
+  nanoid@5.1.11: {}
 
   normalize-path@3.0.0: {}
 
@@ -1922,6 +2038,8 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
+  tagged-tag@1.0.0: {}
+
   thread-stream@4.2.0:
     dependencies:
       real-require: 1.0.0
@@ -1990,6 +2108,10 @@ snapshots:
   tsyringe@4.10.0:
     dependencies:
       tslib: 1.14.1
+
+  type-fest@5.7.0:
+    dependencies:
+      tagged-tag: 1.0.0
 
   typescript@5.9.3: {}
 

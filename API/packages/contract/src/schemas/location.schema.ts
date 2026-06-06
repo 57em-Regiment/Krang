@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import { FactionSchema, LocationTypeSchema } from '../enums';
+import { RegionSchema } from './region.schema';
+import { TownNameSchema } from './town.schema';
 
 export const LocationSchema = z.object({
   id: z.uuid(),
@@ -13,6 +15,21 @@ export const LocationSchema = z.object({
   regionId: z.uuid(),
   townId: z.uuid(),
 });
+export type Location = z.infer<typeof LocationSchema>;
+
+export const LocationNamesSchema = z.object({
+  id: z.uuid(),
+
+  regionId: z.uuid(),
+  region: RegionSchema,
+
+  townId: z.uuid(),
+  town: TownNameSchema,
+
+  type: LocationTypeSchema,
+  faction: FactionSchema,
+});
+export type LocationNames = z.infer<typeof LocationNamesSchema>;
 
 export const createLocationSchema = z.object({
   type: LocationTypeSchema,
@@ -25,14 +42,12 @@ export const createLocationSchema = z.object({
   regionId: z.uuid(),
   townId: z.uuid(),
 });
+export type CreateLocation = z.infer<typeof createLocationSchema>;
 
 export const updateLocationSchema = createLocationSchema.partial();
+export type UpdateLocation = z.infer<typeof updateLocationSchema>;
 
 export const locationParamsSchema = z.object({
   id: z.uuid(),
 });
-
-export type Location = z.infer<typeof LocationSchema>;
-export type CreateLocation = z.infer<typeof createLocationSchema>;
-export type UpdateLocation = z.infer<typeof updateLocationSchema>;
 export type LocationParams = z.infer<typeof locationParamsSchema>;
