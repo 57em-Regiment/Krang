@@ -51,3 +51,8 @@ export const locationParamsSchema = z.object({
   id: z.uuid(),
 });
 export type LocationParams = z.infer<typeof locationParamsSchema>;
+export const locationQuerySchema = z.object({
+  search: z.string().optional(),
+  limit: z.coerce.number().int().optional(),
+});
+export type LocationQuery = z.infer<typeof locationQuerySchema>;

@@ -6,4 +6,6 @@ model Region {
 
   towns         Town[]
   locations     Location[]
+
+  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin)
 }

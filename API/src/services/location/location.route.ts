@@ -10,6 +10,7 @@ export async function locationRoutes(app: FastifyInstance) {
   const server = app.withTypeProvider<ZodTypeProvider>();
 
   declareRoute(server, locationContract.getAll, ctrl.getAll.bind(ctrl));
+  declareRoute(server, locationContract.getAllNames, ctrl.getAllNames.bind(ctrl));
   declareRoute(server, locationContract.getById, ctrl.getById.bind(ctrl));
   declareRoute(server, locationContract.getNames, ctrl.getNames.bind(ctrl));
   declareRoute(server, locationContract.create, ctrl.create.bind(ctrl));

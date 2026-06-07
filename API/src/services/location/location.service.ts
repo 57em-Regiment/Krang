@@ -2,6 +2,7 @@ import { LocationRepository } from '@/services/location/location.repository';
 import {
   CreateLocation,
   Location,
+  LocationQuery,
   UpdateLocation,
 } from '@57eme-regiment/krang-api-contract';
 import { AppError } from '@57eme-regiment/nabu-errors';
@@ -20,6 +21,10 @@ export class LocationService {
 
   async getAll(): Promise<Location[]> {
     return this.locationRepository.findAll();
+  }
+
+  async getAllNames(queryString: LocationQuery): Promise<LocationNames[]> {
+    return this.locationRepository.findAllNames(queryString);
   }
 
   async getById(id: string): Promise<Location> {

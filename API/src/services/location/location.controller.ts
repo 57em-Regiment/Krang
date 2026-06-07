@@ -2,6 +2,7 @@ import { LocationService } from '@/services/location/location.service';
 import {
   CreateLocation,
   LocationParams,
+  LocationQuery,
   UpdateLocation,
 } from '@57eme-regiment/krang-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
@@ -13,6 +14,14 @@ export class LocationController {
 
   async getAll(_req: FastifyRequest, reply: FastifyReply) {
     const locations = await this.locationService.getAll();
+    return reply.send(locations);
+  }
+
+  async getAllNames(
+    req: FastifyRequest<{ Querystring: LocationQuery }>,
+    reply: FastifyReply,
+  ) {
+    const locations = await this.locationService.getAllNames(req.query);
     return reply.send(locations);
   }
 
