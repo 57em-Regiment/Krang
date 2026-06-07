@@ -56,7 +56,7 @@ export class LocationRepository {
         OR similarity(t.name, ${search}) > ${threshold}
         OR r.name ILIKE ${'%' + search + '%'}
         OR t.name ILIKE ${'%' + search + '%'}
-        OR l.type ILIKE ${'%' + search + '%'}
+        OR l.type::text ILIKE ${'%' + search + '%'}
       ORDER BY
         GREATEST(
           similarity(r.name, ${search}),

@@ -18,19 +18,11 @@ export class MaintenanceService {
   async renenutet(): Promise<void> {
     const locations = await this.locationRepository.findAll();
     const locationsBody = locations.map(l => ({ id: l.id }));
-    console.log(
-      '🚀 ~ MaintenanceService ~ renenutet ~ locationsBody:',
-      locationsBody.length,
-    );
     this.renenutetClient.locationRef.drop();
     this.renenutetClient.locationRef.createRange({ body: locationsBody });
 
     const items = await this.itemRepository.findAll();
     const itemsBody = items.map(i => ({ id: i.id }));
-    console.log(
-      '🚀 ~ MaintenanceService ~ renenutet ~ itemsBody:',
-      itemsBody.length,
-    );
     this.renenutetClient.itemRef.drop();
     this.renenutetClient.itemRef.createRange({ body: itemsBody });
   }
