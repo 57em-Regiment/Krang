@@ -5,6 +5,7 @@ import {
   LocationSchema,
   createLocationSchema,
   locationParamsSchema,
+  locationQuerySchema,
   updateLocationSchema,
 } from '../schemas/location.schema';
 
@@ -31,6 +32,16 @@ export const locationContract = c.router(
       summary: 'Récupérer une localisation par son ID',
       description:
         'Retourne une localisation par son UUID. Retourne 404 si introuvable.',
+      metadata: { tags: ['Localisations'] },
+    }),
+    getAllNames: c.query({
+      method: 'GET',
+      path: '/names',
+      query: locationQuerySchema,
+      responses: { 200: z.array(LocationNamesSchema) },
+      summary: 'Lister les localisations avec leurs noms',
+      description:
+        'Retourne la liste des localisations enrichies (région, ville) avec recherche fuzzy optionnelle.',
       metadata: { tags: ['Localisations'] },
     }),
     getNames: c.query({

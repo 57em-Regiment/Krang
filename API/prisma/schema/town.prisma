@@ -13,4 +13,5 @@ model Town {
   location      Location[]
 
   @@unique([name, regionId])
+  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin)
 }
