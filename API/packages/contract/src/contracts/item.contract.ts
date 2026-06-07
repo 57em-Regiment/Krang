@@ -4,6 +4,7 @@ import {
   ItemSchema,
   createItemSchema,
   itemParamsSchema,
+  itemQuerySchema,
   updateItemSchema,
 } from '../schemas/item.schema';
 
@@ -14,9 +15,11 @@ export const itemContract = c.router(
     getAll: c.query({
       method: 'GET',
       path: '/',
+      query: itemQuerySchema,
       responses: { 200: z.array(ItemSchema) },
       summary: 'Lister les items',
-      description: 'Retourne la liste de tous les items Foxhole.',
+      description:
+        'Retourne la liste de tous les items Foxhole. Filtrable par `search` (name/shortName, insensible à la casse).',
       metadata: { tags: ['Items'] },
     }),
     getById: c.query({
@@ -28,7 +31,8 @@ export const itemContract = c.router(
         404: z.object({ message: z.string(), code: z.string() }),
       },
       summary: 'Récupérer un item par son ID',
-      description: 'Retourne un item par son UUID. Retourne 404 si introuvable.',
+      description:
+        'Retourne un item par son UUID. Retourne 404 si introuvable.',
       metadata: { tags: ['Items'] },
     }),
     create: c.mutation({
@@ -46,7 +50,8 @@ export const itemContract = c.router(
       body: createItemSchema,
       responses: { 200: ItemSchema },
       summary: 'Upsert un item',
-      description: "Crée l'item s'il n'existe pas (matché par nom), sinon le met à jour. Retourne l'item résultant.",
+      description:
+        "Crée l'item s'il n'existe pas (matché par nom), sinon le met à jour. Retourne l'item résultant.",
       metadata: { tags: ['Items'] },
     }),
     upsertRange: c.mutation({
@@ -55,7 +60,8 @@ export const itemContract = c.router(
       body: createItemSchema.array(),
       responses: { 200: ItemSchema.array() },
       summary: 'Upsert plusieurs items',
-      description: 'Crée ou met à jour plusieurs items en une transaction, matchés par nom. Retourne les items résultants.',
+      description:
+        'Crée ou met à jour plusieurs items en une transaction, matchés par nom. Retourne les items résultants.',
       metadata: { tags: ['Items'] },
     }),
     update: c.mutation({
@@ -68,7 +74,8 @@ export const itemContract = c.router(
         404: z.object({ message: z.string(), code: z.string() }),
       },
       summary: 'Mettre à jour un item',
-      description: 'Met à jour partiellement un item par son UUID. Retourne 404 si introuvable.',
+      description:
+        'Met à jour partiellement un item par son UUID. Retourne 404 si introuvable.',
       metadata: { tags: ['Items'] },
     }),
     delete: c.mutation({
@@ -81,7 +88,8 @@ export const itemContract = c.router(
         404: z.object({ message: z.string(), code: z.string() }),
       },
       summary: 'Supprimer un item',
-      description: 'Supprime un item par son UUID. Retourne 404 si introuvable.',
+      description:
+        'Supprime un item par son UUID. Retourne 404 si introuvable.',
       metadata: { tags: ['Items'] },
     }),
   },

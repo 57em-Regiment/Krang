@@ -2,6 +2,7 @@ import { ItemService } from '@/services/item/item.service';
 import {
   CreateItem,
   ItemParams,
+  ItemQuery,
   UpdateItem,
 } from '@57eme-regiment/krang-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
@@ -11,8 +12,14 @@ import { injectable } from 'tsyringe';
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
-  async getAll(_req: FastifyRequest, reply: FastifyReply) {
-    const items = await this.itemService.getAll();
+  async getAll(
+    req: FastifyRequest<{ Querystring: ItemQuery }>,
+    reply: FastifyReply,
+  ) {
+    const items = await this.itemService.getAll({
+      search: req.query.search,
+      limit: req.query.limit,
+    });
     return reply.send(items);
   }
 

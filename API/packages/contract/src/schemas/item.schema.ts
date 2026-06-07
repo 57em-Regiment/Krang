@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { CategorySchema, ClassSchema, FactionSchema, SuperClassSchema } from '../enums';
+import {
+  CategorySchema,
+  ClassSchema,
+  FactionSchema,
+  SuperClassSchema,
+} from '../enums';
 
 export const ItemSchema = z.object({
   id: z.uuid(),
@@ -30,13 +35,18 @@ export const createItemSchema = z.object({
   icon: z.url().nullish(),
   attributes: z.record(z.string(), z.any()).optional(),
 });
+export type CreateItem = z.infer<typeof createItemSchema>;
 
 export const updateItemSchema = createItemSchema.partial();
+export type UpdateItem = z.infer<typeof updateItemSchema>;
 
 export const itemParamsSchema = z.object({
   id: z.uuid(),
 });
-
-export type CreateItem = z.infer<typeof createItemSchema>;
-export type UpdateItem = z.infer<typeof updateItemSchema>;
 export type ItemParams = z.infer<typeof itemParamsSchema>;
+
+export const itemQuerySchema = z.object({
+  search: z.string().optional(),
+  limit: z.coerce.number().int().positive().max(100).optional(),
+});
+export type ItemQuery = z.infer<typeof itemQuerySchema>;

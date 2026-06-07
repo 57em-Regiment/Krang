@@ -13,4 +13,7 @@ model Item {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin)
+  @@index([shortName(ops: raw("gin_trgm_ops"))], type: Gin)
 }

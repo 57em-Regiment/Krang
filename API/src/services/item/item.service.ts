@@ -1,15 +1,19 @@
 import { Item } from '@/generated/client';
 import { ItemRepository } from '@/services/item/item.repository';
+import {
+  CreateItem,
+  ItemQuery,
+  UpdateItem,
+} from '@57eme-regiment/krang-api-contract';
 import { AppError } from '@57eme-regiment/nabu-errors';
-import { CreateItem, UpdateItem } from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
 
 @injectable()
 export class ItemService {
   constructor(private readonly itemRepository: ItemRepository) {}
 
-  async getAll(): Promise<Item[]> {
-    return this.itemRepository.findAll();
+  async getAll({ limit, search }: ItemQuery): Promise<Item[]> {
+    return this.itemRepository.findAll(search, limit);
   }
 
   async getById(id: string): Promise<Item> {
