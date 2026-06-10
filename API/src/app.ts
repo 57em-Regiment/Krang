@@ -1,6 +1,6 @@
-import '@57eme-regiment/auth-server';
 import { env } from '@/config/env';
 import { logger } from '@/config/logger';
+import '@57eme-regiment/auth-server';
 import { createErrorHandler } from '@57eme-regiment/nabu-errors';
 import cors from '@fastify/cors';
 import fastifySwagger from '@fastify/swagger';
@@ -60,7 +60,7 @@ export function buildApp() {
     const baseTransform = createJsonSchemaTransform({});
     app.register(fastifySwagger, {
       openapi: {
-        info: { title: 'Renenutet API', version: '1.0.0' },
+        info: { title: 'Krang API', version: '1.0.0' },
       },
       transform: document => {
         try {
