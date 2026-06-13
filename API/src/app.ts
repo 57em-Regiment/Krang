@@ -18,7 +18,7 @@ import { regionRoutes } from './services/region/region.route';
 import { townRoutes } from './services/town/town.route';
 
 export function buildApp() {
-  const app = Fastify({ logger: { level: 'error' } });
+  const app = Fastify({ logger: { level: 'error' }, ignoreTrailingSlash: true });
 
   app.addHook('onRequest', (req, _reply, done) => {
     logger.info(
