@@ -1,0 +1,1 @@
+ALTER TABLE "Location" ALTER COLUMN "canStoreCreate" SET NOT NULL;

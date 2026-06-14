@@ -335,6 +335,7 @@ export const FactionSchema = z.enum(Faction);
 export const LocationType = {
   STORAGE_DEPOT: 'STORAGE_DEPOT',
   SEAPORT: 'SEAPORT',
+  AIRCRAFT_RUNWAY: 'AIRCRAFT_RUNWAY',
 } as const;
 export type LocationType = (typeof LocationType)[keyof typeof LocationType];
 export const LocationTypeSchema = z.enum(LocationType);

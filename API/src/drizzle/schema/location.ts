@@ -32,7 +32,7 @@ export const location = pgTable(
     flags: integer().default(0).notNull(),
     viewDirection: integer().default(0).notNull(),
 
-    canStoreCreate: boolean().default(false),
+    canStoreCreate: boolean().default(false).notNull(),
 
     longitude: doublePrecision().notNull(), //X repésente Est-Ouest
     latitude: doublePrecision().notNull(), //Y Repésente Nord/Sud
