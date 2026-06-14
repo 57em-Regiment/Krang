@@ -342,7 +342,7 @@ export const item = pgTable(
     nbByCrate: integer().default(100).notNull(),
     maxQuantity: integer().default(100).notNull(),
     icon: text(),
-    attributes: jsonb(),
+    attributes: jsonb().$type<Record<string, unknown>>(),
     createdAt: timestamp({ precision: 3, mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp({ precision: 3, mode: 'date' }).defaultNow().notNull(),
   },

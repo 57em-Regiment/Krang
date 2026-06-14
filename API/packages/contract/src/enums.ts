@@ -12,7 +12,8 @@ export const Category = {
   SHIPPABLE: 'SHIPPABLE',
   MATERIALS: 'MATERIALS',
   UNIFORMS: 'UNIFORMS',
-  AIRCRAFT_PARTS: 'AIRCRAFT_PARTS'
+  AIRCRAFT_PARTS: 'AIRCRAFT_PARTS',
+  NONE: 'NONE'
 } as const;
 export type Category = (typeof Category)[keyof typeof Category];
 export const CategorySchema = z.enum(Category);
