@@ -37,7 +37,7 @@ export const createLocationSchema = z.object({
   type: LocationTypeSchema,
   faction: FactionSchema,
   iconType: z.number().int().default(0),
-  icon: z.url(),
+  icon: z.url().nullable(),
   flags: z.number().int().default(0),
   viewDirection: z.number().int().default(0),
   canStoreCreate: z.boolean().default(false),
