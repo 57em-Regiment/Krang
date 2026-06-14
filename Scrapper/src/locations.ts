@@ -5,6 +5,7 @@ import {
 import { fetchLocationsInRegions } from '../api/war/warApi.api.js';
 import type { ApiClient } from './api.js';
 import { getNearestTownId, type DynamicResponse } from './helpers.js';
+import { canStoreCreate, IconTypeMap, imageBaseUrl } from './iconTypeMapper.js';
 
 export const scrapLocations = async (
   api: ApiClient,
@@ -30,15 +31,19 @@ export const scrapLocations = async (
     for (const loc of dynamicData.mapItems) {
       body.push({
         type: 'SEAPORT',
-        faction: "NEUTRAL",
+        faction: 'NEUTRAL',
         iconType: loc.iconType,
+        icon: IconTypeMap[loc.iconType]
+          ? imageBaseUrl + IconTypeMap[loc.iconType]
+          : '',
+        canStoreCreate: canStoreCreate[loc.iconType] ? true : false,
         flags: loc.flags,
         viewDirection: loc.viewDirection,
         longitude: loc.x,
         latitude: loc.y,
         regionId: region.id,
         townId: getNearestTownId(townsInRegion, loc.x, loc.y),
-      });
+      } satisfies CreateLocation);
     }
 
     if (body.length > 0) {

@@ -27,3 +27,4 @@ export type WarLocation = {
   viewDirection: number;
 };
 export type DynamicResponse = { mapItems: WarLocation[] };
+
