@@ -57,6 +57,8 @@ export type LocationParams = z.infer<typeof locationParamsSchema>;
 export const locationQuerySchema = z.object({
   search: z.string().optional(),
   limit: z.coerce.number().int().optional(),
-  filterType: z.array(LocationTypeSchema).optional(),
+  filterType: z
+    .preprocess(v => (v == null ? undefined : Array.isArray(v) ? v : [v]), z.array(LocationTypeSchema))
+    .optional(),
 });
 export type LocationQuery = z.infer<typeof locationQuerySchema>;

@@ -24,7 +24,13 @@ export class LocationService {
   }
 
   async getAllNames(queryString: LocationQuery): Promise<LocationNames[]> {
-    return this.locationRepository.findAllNames(queryString);
+    console.log(
+      '🚀 ~ LocationService ~ getAllNames ~ queryString:',
+      queryString,
+    );
+    const res = await this.locationRepository.findAllNames(queryString);
+    console.log('🚀 ~ LocationService ~ getAllNames ~ res:', res);
+    return res;
   }
 
   async getById(id: string): Promise<Location> {

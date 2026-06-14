@@ -1,5 +1,6 @@
 import { env } from '@/config/env';
 import { logger } from '@/config/logger';
+import qs from 'qs';
 import '@57eme-regiment/auth-server';
 import { createErrorHandler } from '@57eme-regiment/nabu-errors';
 import cors from '@fastify/cors';
@@ -18,7 +19,11 @@ import { regionRoutes } from './services/region/region.route';
 import { townRoutes } from './services/town/town.route';
 
 export function buildApp() {
-  const app = Fastify({ logger: { level: 'error' }, ignoreTrailingSlash: true });
+  const app = Fastify({
+    logger: { level: 'error' },
+    ignoreTrailingSlash: true,
+    querystringParser: str => qs.parse(str),
+  });
 
   app.addHook('onRequest', (req, _reply, done) => {
     logger.info(

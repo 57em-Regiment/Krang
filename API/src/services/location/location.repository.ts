@@ -23,6 +23,11 @@ export class LocationRepository {
   async findAllNames(query: LocationQuery): Promise<LocationNames[]> {
     const take = query.limit ?? 25;
 
+    const typeFilter =
+      query.filterType?.length
+        ? inArray(location.type, query.filterType)
+        : undefined;
+
     if (!query.search) {
       return this.db.context
         .select({
@@ -45,17 +50,15 @@ export class LocationRepository {
         .from(location)
         .innerJoin(region, eq(location.regionId, region.id))
         .innerJoin(town, eq(location.townId, town.id))
-        .$dynamic()
-        .where(
-          query.filterType?.length
-            ? inArray(location.type, query.filterType)
-            : undefined,
-        )
+        .where(typeFilter)
         .limit(take);
     }
 
     const search = query.search;
     const threshold = 0.1;
+    const typeFilterSql = query.filterType?.length
+      ? sql.raw(`AND l.type::text = ANY(ARRAY['${query.filterType.join("','")}']::text[])`)
+      : sql``;
 
     return this.db.context.execute(sql`
       SELECT
@@ -78,7 +81,7 @@ export class LocationRepository {
           OR t.name ILIKE ${'%' + search + '%'}
           OR l.type::text ILIKE ${'%' + search + '%'}
         )
-        ${query.filterType?.length ? sql`AND l.type = ANY(${query.filterType})` : sql``}
+        ${typeFilterSql}
       ORDER BY
         GREATEST(
           similarity(r.name, ${search}),
