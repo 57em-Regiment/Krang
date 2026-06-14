@@ -29,6 +29,7 @@ export const LocationNamesSchema = z.object({
 
   type: LocationTypeSchema,
   faction: FactionSchema,
+  icon: z.url().nullish(),
 });
 export type LocationNames = z.infer<typeof LocationNamesSchema>;
 
@@ -56,5 +57,6 @@ export type LocationParams = z.infer<typeof locationParamsSchema>;
 export const locationQuerySchema = z.object({
   search: z.string().optional(),
   limit: z.coerce.number().int().optional(),
+  filterType: z.array(LocationTypeSchema).optional(),
 });
 export type LocationQuery = z.infer<typeof locationQuerySchema>;

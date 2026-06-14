@@ -1,8 +1,15 @@
 import { location, region, town } from '@/drizzle/schema';
-import { LocationInsert, LocationSelect, LocationUpdate } from '@/drizzle/schema/zod';
+import {
+  LocationInsert,
+  LocationSelect,
+  LocationUpdate,
+} from '@/drizzle/schema/zod';
 import { Database } from '@/infrastructure/database';
-import { LocationNames, LocationQuery } from '@57eme-regiment/krang-api-contract';
-import { eq, sql } from 'drizzle-orm';
+import {
+  LocationNames,
+  LocationQuery,
+} from '@57eme-regiment/krang-api-contract';
+import { eq, inArray, sql } from 'drizzle-orm';
 import { injectable } from 'tsyringe';
 
 @injectable()
@@ -21,6 +28,7 @@ export class LocationRepository {
         .select({
           id: location.id,
           regionId: location.regionId,
+          icon: location.icon,
           region: {
             id: region.id,
             name: region.name,
@@ -37,6 +45,12 @@ export class LocationRepository {
         .from(location)
         .innerJoin(region, eq(location.regionId, region.id))
         .innerJoin(town, eq(location.townId, town.id))
+        .$dynamic()
+        .where(
+          query.filterType?.length
+            ? inArray(location.type, query.filterType)
+            : undefined,
+        )
         .limit(take);
     }
 
@@ -47,6 +61,7 @@ export class LocationRepository {
       SELECT
         l.id,
         l."regionId",
+        l."icon",
         jsonb_build_object('id', r.id, 'name', r.name, 'gameRegionId', r."gameRegionId") AS region,
         l."townId",
         jsonb_build_object('id', t.id, 'name', t.name) AS town,
@@ -56,11 +71,14 @@ export class LocationRepository {
       JOIN "Region" r ON r.id = l."regionId"
       JOIN "Town" t ON t.id = l."townId"
       WHERE
-        similarity(r.name, ${search}) > ${threshold}
-        OR similarity(t.name, ${search}) > ${threshold}
-        OR r.name ILIKE ${'%' + search + '%'}
-        OR t.name ILIKE ${'%' + search + '%'}
-        OR l.type::text ILIKE ${'%' + search + '%'}
+        (
+          similarity(r.name, ${search}) > ${threshold}
+          OR similarity(t.name, ${search}) > ${threshold}
+          OR r.name ILIKE ${'%' + search + '%'}
+          OR t.name ILIKE ${'%' + search + '%'}
+          OR l.type::text ILIKE ${'%' + search + '%'}
+        )
+        ${query.filterType?.length ? sql`AND l.type = ANY(${query.filterType})` : sql``}
       ORDER BY
         GREATEST(
           similarity(r.name, ${search}),
@@ -80,7 +98,10 @@ export class LocationRepository {
   }
 
   async create(data: LocationInsert): Promise<LocationSelect> {
-    const rows = await this.db.context.insert(location).values(data).returning();
+    const rows = await this.db.context
+      .insert(location)
+      .values(data)
+      .returning();
     return rows[0];
   }
 

@@ -5,7 +5,11 @@ import {
 import { fetchLocationsInRegions } from '../api/war/warApi.api.js';
 import type { ApiClient } from './api.js';
 import { getNearestTownId, type DynamicResponse } from './helpers.js';
-import { canStoreCreate, IconTypeMap, imageBaseUrl } from './iconTypeMapper.js';
+import {
+  IconTypeMap,
+  imageBaseUrl,
+  LocationTypeByIconMap,
+} from './iconTypeMapper.js';
 
 export const scrapLocations = async (
   api: ApiClient,
@@ -30,13 +34,18 @@ export const scrapLocations = async (
 
     for (const loc of dynamicData.mapItems) {
       body.push({
-        type: 'SEAPORT',
-        faction: 'NEUTRAL',
+        type: LocationTypeByIconMap[loc.iconType] ?? 'HOME_BASE',
+        faction:
+          loc.teamId == 'NONE'
+            ? 'NEUTRAL'
+            : loc.teamId == 'COLONIALS'
+              ? 'COLONIAL'
+              : 'WARDEN',
         iconType: loc.iconType,
-        icon: IconTypeMap[loc.iconType]
-          ? imageBaseUrl + IconTypeMap[loc.iconType]
-          : '',
-        canStoreCreate: canStoreCreate[loc.iconType] ? true : false,
+        icon:
+          IconTypeMap[loc.iconType] != null
+            ? imageBaseUrl + IconTypeMap[loc.iconType]
+            : null,
         flags: loc.flags,
         viewDirection: loc.viewDirection,
         longitude: loc.x,
