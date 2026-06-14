@@ -29,6 +29,13 @@
       "when": 1781452967547,
       "tag": "0003_updateCanStoreCreate",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1781459843115,
+      "tag": "0004_AddLocationType",
+      "breakpoints": true
     }
   ]
 }

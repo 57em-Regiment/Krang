@@ -1,5 +1,4 @@
 import {
-  boolean,
   doublePrecision,
   foreignKey,
   integer,
@@ -15,24 +14,32 @@ import { region } from './region';
 import { town } from './town';
 
 export const locationType = pgEnum('LocationType', [
-  'STORAGE_DEPOT',
-  'SEAPORT',
-  'AIRCRAFT_RUNWAY',
+  'SPAWN_STORAGE',
+  'FORWARD_BASE',
+  'MEDICAL_BASE',
+  'PRODUCTION',
+  'NEUTRAL_STRUCTURE',
+  'WORLD_STRUCTURE',
+  'RESOURCE_FIELD',
+  'AUTOMATED_DEFENSE',
+  'RESOURCE_HARVESTER',
+  'STORAGE',
+  'HOME_BASE',
+  'PLAYER_MANNED_DEFENSE',
+  'UTILITY',
 ]);
 
 export const location = pgTable(
   'Location',
   {
     id: uuid().defaultRandom().primaryKey().notNull(),
-    type: locationType().default('SEAPORT').notNull(),
+    type: locationType().default('SPAWN_STORAGE').notNull(),
     faction: faction().default('NEUTRAL').notNull(),
 
     iconType: integer().default(0).notNull(),
     icon: text(),
     flags: integer().default(0).notNull(),
     viewDirection: integer().default(0).notNull(),
-
-    canStoreCreate: boolean().default(false).notNull(),
 
     longitude: doublePrecision().notNull(), //X repésente Est-Ouest
     latitude: doublePrecision().notNull(), //Y Repésente Nord/Sud
