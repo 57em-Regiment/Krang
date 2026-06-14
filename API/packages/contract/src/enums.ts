@@ -12,7 +12,8 @@ export const Category = {
   SHIPPABLE: 'SHIPPABLE',
   MATERIALS: 'MATERIALS',
   UNIFORMS: 'UNIFORMS',
-  AIRCRAFT_PARTS: 'AIRCRAFT_PARTS'
+  AIRCRAFT_PARTS: 'AIRCRAFT_PARTS',
+  NONE: 'NONE'
 } as const;
 export type Category = (typeof Category)[keyof typeof Category];
 export const CategorySchema = z.enum(Category);
@@ -334,6 +335,7 @@ export const FactionSchema = z.enum(Faction);
 export const LocationType = {
   STORAGE_DEPOT: 'STORAGE_DEPOT',
   SEAPORT: 'SEAPORT',
+  AIRCRAFT_RUNWAY: 'AIRCRAFT_RUNWAY',
 } as const;
 export type LocationType = (typeof LocationType)[keyof typeof LocationType];
 export const LocationTypeSchema = z.enum(LocationType);

@@ -17,7 +17,7 @@ export const ItemSchema = z.object({
   nbByCrate: z.number().int(),
   maxQuantity: z.number().int(),
   icon: z.string().nullable(),
-  attributes: z.record(z.string(), z.any()),
+  attributes: z.record(z.string(), z.any()).nullable(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 });

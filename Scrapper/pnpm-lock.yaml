@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@57eme-regiment/krang-api-contract':
-        specifier: ^0.3.5
-        version: 0.3.5(@types/node@25.9.1)(zod@4.4.3)
+        specifier: file:../API/packages/contract
+        version: file:../API/packages/contract(@types/node@25.9.1)(zod@4.4.3)
       '@ts-rest/core':
         specifier: 3.53.0-rc.1
         version: 3.53.0-rc.1(@types/node@25.9.1)
@@ -39,8 +39,8 @@ importers:
 
 packages:
 
-  '@57eme-regiment/krang-api-contract@0.3.5':
-    resolution: {integrity: sha512-UypPhr46+WHkgn22HPYVeGX6X2D5DuWLUJdyUM/p1eMaVd5QjmWWboC4TRbj5vHKz3APMybitlXzhClchHz1sA==, tarball: https://npm.pkg.github.com/download/@57eme-Regiment/krang-api-contract/0.3.5/99a4c819bc8439df1d220f73b28b91e4f7c7d834}
+  '@57eme-regiment/krang-api-contract@file:../API/packages/contract':
+    resolution: {directory: ../API/packages/contract, type: directory}
     peerDependencies:
       zod: '>=3'
 
@@ -437,7 +437,7 @@ packages:
 
 snapshots:
 
-  '@57eme-regiment/krang-api-contract@0.3.5(@types/node@25.9.1)(zod@4.4.3)':
+  '@57eme-regiment/krang-api-contract@file:../API/packages/contract(@types/node@25.9.1)(zod@4.4.3)':
     dependencies:
       '@ts-rest/core': 3.53.0-rc.1(@types/node@25.9.1)
       zod: 4.4.3

@@ -1,7 +1,7 @@
-import { Item } from '@/generated/client';
 import { ItemRepository } from '@/services/item/item.repository';
 import {
   CreateItem,
+  Item,
   ItemQuery,
   UpdateItem,
 } from '@57eme-regiment/krang-api-contract';

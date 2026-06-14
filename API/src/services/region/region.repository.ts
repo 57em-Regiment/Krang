@@ -1,53 +1,62 @@
-import { Region } from '@/generated/client';
+import { region } from '@/drizzle/schema';
+import { RegionInsert, RegionSelect, RegionUpdate } from '@/drizzle/schema/zod';
 import { Database } from '@/infrastructure/database';
-import { CreateRegion, UpdateRegion } from '@57eme-regiment/krang-api-contract';
+import { eq, sql } from 'drizzle-orm';
 import { injectable } from 'tsyringe';
 
 @injectable()
 export class RegionRepository {
   constructor(private readonly db: Database) {}
 
-  findAll(): Promise<Region[]> {
-    return this.db.context.region.findMany({});
+  findAll(): Promise<RegionSelect[]> {
+    return this.db.context.select().from(region);
   }
 
-  findById(id: string): Promise<Region | null> {
-    return this.db.context.region.findUnique({ where: { id } });
+  async findById(id: string): Promise<RegionSelect | null> {
+    const rows = await this.db.context.select().from(region).where(eq(region.id, id)).limit(1);
+    return rows[0] ?? null;
   }
 
-  create(data: CreateRegion): Promise<Region> {
-    return this.db.context.region.create({ data });
-  }
-  createRange(data: CreateRegion[]): Promise<Region[]> {
-    return this.db.context.region.createManyAndReturn({ data });
+  async create(data: RegionInsert): Promise<RegionSelect> {
+    const rows = await this.db.context.insert(region).values(data).returning();
+    return rows[0];
   }
 
-  update(id: string, data: UpdateRegion): Promise<Region> {
-    return this.db.context.region.update({ where: { id }, data });
+  createRange(data: RegionInsert[]): Promise<RegionSelect[]> {
+    return this.db.context.insert(region).values(data).returning();
   }
 
-  upsert(data: CreateRegion): Promise<Region> {
+  async update(id: string, data: RegionUpdate): Promise<RegionSelect> {
+    const rows = await this.db.context
+      .update(region)
+      .set(data)
+      .where(eq(region.id, id))
+      .returning();
+    return rows[0];
+  }
+
+  async upsert(data: RegionInsert): Promise<RegionSelect> {
     const { name, ...rest } = data;
-    return this.db.context.region.upsert({
-      where: { name },
-      create: data,
-      update: rest,
-    });
+    const rows = await this.db.context
+      .insert(region)
+      .values(data)
+      .onConflictDoUpdate({ target: region.name, set: rest })
+      .returning();
+    return rows[0];
   }
 
-  upsertRange(data: CreateRegion[]): Promise<Region[]> {
-    return this.db.context.$transaction(
-      data.map(({ name, ...rest }) =>
-        this.db.context.region.upsert({
-          where: { name },
-          create: { name, ...rest },
-          update: rest,
-        }),
-      ),
-    );
+  upsertRange(data: RegionInsert[]): Promise<RegionSelect[]> {
+    return this.db.context
+      .insert(region)
+      .values(data)
+      .onConflictDoUpdate({
+        target: region.name,
+        set: { gameRegionId: sql`excluded."gameRegionId"` },
+      })
+      .returning();
   }
 
   async delete(id: string): Promise<void> {
-    await this.db.context.region.delete({ where: { id } });
+    await this.db.context.delete(region).where(eq(region.id, id));
   }
 }

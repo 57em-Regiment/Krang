@@ -1,45 +1,49 @@
-import { Location } from '@/generated/client';
+import { location, region, town } from '@/drizzle/schema';
+import { LocationInsert, LocationSelect, LocationUpdate } from '@/drizzle/schema/zod';
 import { Database } from '@/infrastructure/database';
-import {
-  CreateLocation,
-  LocationNames,
-  LocationQuery,
-  UpdateLocation,
-} from '@57eme-regiment/krang-api-contract';
+import { LocationNames, LocationQuery } from '@57eme-regiment/krang-api-contract';
+import { eq, sql } from 'drizzle-orm';
 import { injectable } from 'tsyringe';
-
 
 @injectable()
 export class LocationRepository {
   constructor(private readonly db: Database) {}
 
-  findAll(): Promise<Location[]> {
-    return this.db.context.location.findMany({});
+  findAll(): Promise<LocationSelect[]> {
+    return this.db.context.select().from(location);
   }
 
   async findAllNames(query: LocationQuery): Promise<LocationNames[]> {
     const take = query.limit ?? 25;
 
     if (!query.search) {
-      const results = await this.db.context.location.findMany({
-        include: { region: true, town: true },
-        take,
-      });
-      return results.map(r => ({
-        id: r.id,
-        regionId: r.regionId,
-        region: r.region,
-        townId: r.townId,
-        town: { id: r.town.id, name: r.town.name },
-        type: r.type,
-        faction: r.faction,
-      }));
+      return this.db.context
+        .select({
+          id: location.id,
+          regionId: location.regionId,
+          region: {
+            id: region.id,
+            name: region.name,
+            gameRegionId: region.gameRegionId,
+          },
+          townId: location.townId,
+          town: {
+            id: town.id,
+            name: town.name,
+          },
+          type: location.type,
+          faction: location.faction,
+        })
+        .from(location)
+        .innerJoin(region, eq(location.regionId, region.id))
+        .innerJoin(town, eq(location.townId, town.id))
+        .limit(take);
     }
 
     const search = query.search;
     const threshold = 0.1;
 
-    return this.db.context.$queryRaw<LocationNames[]>`
+    return this.db.context.execute(sql`
       SELECT
         l.id,
         l."regionId",
@@ -63,38 +67,54 @@ export class LocationRepository {
           similarity(t.name, ${search})
         ) DESC
       LIMIT ${take}
-    `;
+    `) as unknown as LocationNames[];
   }
 
-  findById(id: string): Promise<Location | null> {
-    return this.db.context.location.findUnique({ where: { id } });
+  async findById(id: string): Promise<LocationSelect | null> {
+    const rows = await this.db.context
+      .select()
+      .from(location)
+      .where(eq(location.id, id))
+      .limit(1);
+    return rows[0] ?? null;
   }
 
-  create(data: CreateLocation): Promise<Location> {
-    return this.db.context.location.create({ data });
+  async create(data: LocationInsert): Promise<LocationSelect> {
+    const rows = await this.db.context.insert(location).values(data).returning();
+    return rows[0];
   }
 
-  createRange(data: CreateLocation[]): Promise<Location[]> {
-    return this.db.context.location.createManyAndReturn({ data });
+  createRange(data: LocationInsert[]): Promise<LocationSelect[]> {
+    return this.db.context.insert(location).values(data).returning();
   }
 
-  upsertRange(data: CreateLocation[]): Promise<Location[]> {
-    return this.db.context.$transaction(
-      data.map(l =>
-        this.db.context.location.upsert({
-          where: { longitude_latitude: { longitude: l.longitude, latitude: l.latitude } },
-          create: l,
-          update: { type: l.type, faction: l.faction, flags: l.flags, viewDirection: l.viewDirection, townId: l.townId },
-        }),
-      ),
-    );
+  upsertRange(data: LocationInsert[]): Promise<LocationSelect[]> {
+    return this.db.context
+      .insert(location)
+      .values(data)
+      .onConflictDoUpdate({
+        target: [location.longitude, location.latitude],
+        set: {
+          type: sql`excluded."type"`,
+          faction: sql`excluded."faction"`,
+          flags: sql`excluded."flags"`,
+          viewDirection: sql`excluded."viewDirection"`,
+          townId: sql`excluded."townId"`,
+        },
+      })
+      .returning();
   }
 
-  update(id: string, data: UpdateLocation): Promise<Location> {
-    return this.db.context.location.update({ where: { id }, data });
+  async update(id: string, data: LocationUpdate): Promise<LocationSelect> {
+    const rows = await this.db.context
+      .update(location)
+      .set(data)
+      .where(eq(location.id, id))
+      .returning();
+    return rows[0];
   }
 
   async delete(id: string): Promise<void> {
-    await this.db.context.location.delete({ where: { id } });
+    await this.db.context.delete(location).where(eq(location.id, id));
   }
 }

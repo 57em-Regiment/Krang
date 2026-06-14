@@ -1,45 +1,56 @@
-import { Town } from '@/generated/client';
+import { town } from '@/drizzle/schema';
+import { TownInsert, TownSelect, TownUpdate } from '@/drizzle/schema/zod';
 import { Database } from '@/infrastructure/database';
-import { CreateTown, UpdateTown } from '@57eme-regiment/krang-api-contract';
+import { eq, sql } from 'drizzle-orm';
 import { injectable } from 'tsyringe';
 
 @injectable()
 export class TownRepository {
   constructor(private readonly db: Database) {}
 
-  findAll(): Promise<Town[]> {
-    return this.db.context.town.findMany({});
+  findAll(): Promise<TownSelect[]> {
+    return this.db.context.select().from(town);
   }
 
-  findById(id: string): Promise<Town | null> {
-    return this.db.context.town.findUnique({ where: { id } });
+  async findById(id: string): Promise<TownSelect | null> {
+    const rows = await this.db.context.select().from(town).where(eq(town.id, id)).limit(1);
+    return rows[0] ?? null;
   }
 
-  create(data: CreateTown): Promise<Town> {
-    return this.db.context.town.create({ data });
+  async create(data: TownInsert): Promise<TownSelect> {
+    const rows = await this.db.context.insert(town).values(data).returning();
+    return rows[0];
   }
 
-  createRange(data: CreateTown[]): Promise<Town[]> {
-    return this.db.context.town.createManyAndReturn({ data });
+  createRange(data: TownInsert[]): Promise<TownSelect[]> {
+    return this.db.context.insert(town).values(data).returning();
   }
 
-  upsertRange(data: CreateTown[]): Promise<Town[]> {
-    return this.db.context.$transaction(
-      data.map(t =>
-        this.db.context.town.upsert({
-          where: { name_regionId: { name: t.name, regionId: t.regionId } },
-          create: t,
-          update: { longitude: t.longitude, latitude: t.latitude, mapMarkerType: t.mapMarkerType },
-        }),
-      ),
-    );
+  upsertRange(data: TownInsert[]): Promise<TownSelect[]> {
+    return this.db.context
+      .insert(town)
+      .values(data)
+      .onConflictDoUpdate({
+        target: [town.name, town.regionId],
+        set: {
+          longitude: sql`excluded."longitude"`,
+          latitude: sql`excluded."latitude"`,
+          mapMarkerType: sql`excluded."mapMarkerType"`,
+        },
+      })
+      .returning();
   }
 
-  update(id: string, data: UpdateTown): Promise<Town> {
-    return this.db.context.town.update({ where: { id }, data });
+  async update(id: string, data: TownUpdate): Promise<TownSelect> {
+    const rows = await this.db.context
+      .update(town)
+      .set(data)
+      .where(eq(town.id, id))
+      .returning();
+    return rows[0];
   }
 
   async delete(id: string): Promise<void> {
-    await this.db.context.town.delete({ where: { id } });
+    await this.db.context.delete(town).where(eq(town.id, id));
   }
 }
