@@ -1,7 +1,6 @@
-import { Town } from '@/generated/client';
 import { TownRepository } from '@/services/town/town.repository';
 import { AppError } from '@57eme-regiment/nabu-errors';
-import { CreateTown, UpdateTown } from '@57eme-regiment/krang-api-contract';
+import { CreateTown, Town, UpdateTown } from '@57eme-regiment/krang-api-contract';
 import { injectable } from 'tsyringe';
 
 @injectable()
