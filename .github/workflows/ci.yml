@@ -1,0 +1,42 @@
+name: CI — Krang
+
+on:
+  push:
+    branches: [develop]
+    tags: ["v*"]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    uses: 57regiment/.github/.github/workflows/_reusable-build-node.yml@main
+    secrets: inherit
+    with:
+      artifact_name: krang-runtime
+      # Krang/API a des link: vers wan-shi-tong et Renenutet
+      working_directory: API
+      checkout_wan_shi_tong: true
+      checkout_renenutet: true
+
+  docker:
+    needs: build
+    uses: 57regiment/.github/.github/workflows/_reusable-docker.yml@main
+    secrets: inherit
+    with:
+      image_name: krang
+      artifact_name: krang-runtime
+      dockerfile: API/Dockerfile
+
+  deploy:
+    needs: docker
+    if: needs.docker.outputs.target == 'staging' || needs.docker.outputs.target == 'prod'
+    uses: 57regiment/.github/.github/workflows/_reusable-deploy.yml@main
+    secrets: inherit
+    with:
+      target: ${{ needs.docker.outputs.target }}
+      image_name: krang
