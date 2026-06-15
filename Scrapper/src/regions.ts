@@ -1,4 +1,7 @@
-import { type CreateRegion, type Region } from '@57eme-regiment/krang-api-contract';
+import {
+  type CreateRegion,
+  type Region,
+} from '@57eme-regiment/krang-api-contract';
 import { fetchRegions } from '../api/war/warApi.api.js';
 import type { ApiClient } from './api.js';
 
@@ -7,7 +10,15 @@ export const scrapRegions = async (api: ApiClient): Promise<Region[]> => {
   const names = await fetchRegions();
   console.log(`[Regions] Found ${names.length} regions`);
 
-  const body = names.map(name => ({ name }) satisfies CreateRegion);
+  const formatName = (name: string) =>
+    name
+      .replace(/Hex$/, '')
+      .replace(/([A-Z])/g, ' $1')
+      .trim();
+
+  const body = names.map(
+    name => ({ name: formatName(name), gameName: name }) satisfies CreateRegion,
+  );
 
   const res = await api.region.upsertRange({ body });
   if (res.status !== 200)

@@ -36,6 +36,13 @@
       "when": 1781459843115,
       "tag": "0004_AddLocationType",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1781466531506,
+      "tag": "0005_addGameName",
+      "breakpoints": true
     }
   ]
 }

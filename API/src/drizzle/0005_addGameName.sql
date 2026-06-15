@@ -1,0 +1,1 @@
+ALTER TABLE "Region" ADD COLUMN "gameName" text NOT NULL;

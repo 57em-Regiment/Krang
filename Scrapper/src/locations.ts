@@ -24,7 +24,7 @@ export const scrapLocations = async (
   for (const region of regions) {
     process.stdout.write(`[Locations] ${region.name} — fetching...`);
     const dynamicData = (await fetchLocationsInRegions(
-      region.name,
+      region.gameName,
     )) as unknown as DynamicResponse;
     const townsInRegion = allTownsRes.body.filter(
       t => t.regionId === region.id,
@@ -58,7 +58,7 @@ export const scrapLocations = async (
     if (body.length > 0) {
       const res = await api.location.upsertRange({ body });
       if (res.status !== 200)
-        throw new Error(`Location upsert failed for region ${region.name}`, {
+        throw new Error(`Location upsert failed for region ${region.gameName}`, {
           cause: res,
         });
       process.stdout.write(` ${res.body.length} locations\n`);

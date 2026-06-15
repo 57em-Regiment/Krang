@@ -15,6 +15,7 @@ export const region = pgTable(
   {
     id: uuid().defaultRandom().primaryKey().notNull(),
     name: text().notNull(),
+    gameName: text().notNull(),
     gameRegionId: integer(),
   },
   table => [

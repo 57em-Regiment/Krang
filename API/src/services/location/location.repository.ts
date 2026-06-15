@@ -37,6 +37,7 @@ export class LocationRepository {
           region: {
             id: region.id,
             name: region.name,
+            gameName: region.gameName,
             gameRegionId: region.gameRegionId,
           },
           townId: location.townId,
@@ -65,7 +66,7 @@ export class LocationRepository {
         l.id,
         l."regionId",
         l."icon",
-        jsonb_build_object('id', r.id, 'name', r.name, 'gameRegionId', r."gameRegionId") AS region,
+        jsonb_build_object('id', r.id, 'name', r.name, 'gameName', r."gameName", 'gameRegionId', r."gameRegionId") AS region,
         l."townId",
         jsonb_build_object('id', t.id, 'name', t.name) AS town,
         l.type,
@@ -113,9 +114,12 @@ export class LocationRepository {
   }
 
   upsertRange(data: LocationInsert[]): Promise<LocationSelect[]> {
+    const deduped = [
+      ...new Map(data.map(d => [`${d.longitude},${d.latitude}`, d])).values(),
+    ];
     return this.db.context
       .insert(location)
-      .values(data)
+      .values(deduped)
       .onConflictDoUpdate({
         target: [location.longitude, location.latitude],
         set: {
