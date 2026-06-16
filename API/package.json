@@ -16,7 +16,7 @@
   "license": "ISC",
   "packageManager": "pnpm@11.1.2",
   "dependencies": {
-    "@57eme-regiment/auth-contracts": "^1.11.0",
+    "@57eme-regiment/auth-contracts": "^1.11.1",
     "@57eme-regiment/auth-server": "^1.6.0",
     "@57eme-regiment/krang-api-contract": "workspace:*",
     "@57eme-regiment/nabu-errors": "link:../../Krang/nabu/packages/errors",
@@ -48,6 +48,6 @@
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.0"
   }
 }
