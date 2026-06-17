@@ -1,5 +1,6 @@
 export * from './contracts/item.contract';
 export * from './contracts/location.contract';
+export * from './contracts/maintenance.contract';
 export * from './contracts/region.contract';
 export * from './contracts/town.contract';
 export * from './enums';

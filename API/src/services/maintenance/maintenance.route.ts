@@ -1,5 +1,5 @@
 import { container } from '@/infrastructure/container';
-import { maintenanceContract } from '@57eme-regiment/krang-api-contract/contracts/maintenance.contract';
+import { maintenanceContract } from '@57eme-regiment/krang-api-contract';
 import { declareRoute } from '@57eme-regiment/nabu-fastify';
 import { ZodTypeProvider } from '@fastify/type-provider-zod';
 import type { FastifyInstance } from 'fastify';

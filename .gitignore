@@ -160,7 +160,10 @@ vite.config.ts.timestamp-*
 .vite/
 
 
+./.npmrc
 API/.npmrc
 Scrapper/.npmrc
 .devcontainer
 .vscode
+
+.npmrc
