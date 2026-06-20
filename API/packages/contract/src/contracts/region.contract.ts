@@ -1,3 +1,4 @@
+import { PERMISSIONS } from '@57eme-regiment/auth-contracts';
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import {
@@ -17,7 +18,10 @@ export const regionContract = c.router(
       responses: { 200: z.array(RegionSchema) },
       summary: 'Lister les régions',
       description: 'Retourne la liste de toutes les régions Foxhole.',
-      metadata: { tags: ['Régions'] },
+      metadata: {
+        tags: ['Régions'],
+        permission: PERMISSIONS.KRANG_REGIONS_READ,
+      },
     }),
     getById: c.query({
       method: 'GET',
@@ -28,8 +32,12 @@ export const regionContract = c.router(
         404: z.object({ message: z.string(), code: z.string() }),
       },
       summary: 'Récupérer une région par son ID',
-      description: 'Retourne une région par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Régions'] },
+      description:
+        'Retourne une région par son UUID. Retourne 404 si introuvable.',
+      metadata: {
+        tags: ['Régions'],
+        permission: PERMISSIONS.KRANG_REGIONS_READ,
+      },
     }),
     create: c.mutation({
       method: 'POST',
@@ -38,7 +46,10 @@ export const regionContract = c.router(
       responses: { 201: RegionSchema },
       summary: 'Créer une région',
       description: 'Crée une nouvelle région et la retourne.',
-      metadata: { tags: ['Régions'] },
+      metadata: {
+        tags: ['Régions'],
+        permission: PERMISSIONS.KRANG_REGIONS_CREATE,
+      },
     }),
     createRange: c.mutation({
       method: 'POST',
@@ -47,7 +58,10 @@ export const regionContract = c.router(
       responses: { 201: RegionSchema.array() },
       summary: 'Créer plusieurs régions',
       description: 'Crée plusieurs régions en une seule opération.',
-      metadata: { tags: ['Régions'] },
+      metadata: {
+        tags: ['Régions'],
+        permission: PERMISSIONS.KRANG_REGIONS_CREATE,
+      },
     }),
     upsert: c.mutation({
       method: 'POST',
@@ -55,8 +69,12 @@ export const regionContract = c.router(
       body: createRegionSchema,
       responses: { 200: RegionSchema },
       summary: 'Upsert une région',
-      description: "Crée la région si elle n'existe pas, sinon la met à jour (matchée par nom).",
-      metadata: { tags: ['Régions'] },
+      description:
+        "Crée la région si elle n'existe pas, sinon la met à jour (matchée par nom).",
+      metadata: {
+        tags: ['Régions'],
+        permission: PERMISSIONS.KRANG_REGIONS_UPDATE,
+      },
     }),
     upsertRange: c.mutation({
       method: 'POST',
@@ -64,8 +82,12 @@ export const regionContract = c.router(
       body: createRegionSchema.array(),
       responses: { 200: RegionSchema.array() },
       summary: 'Upsert plusieurs régions',
-      description: 'Crée ou met à jour plusieurs régions en une transaction, matchées par nom.',
-      metadata: { tags: ['Régions'] },
+      description:
+        'Crée ou met à jour plusieurs régions en une transaction, matchées par nom.',
+      metadata: {
+        tags: ['Régions'],
+        permission: PERMISSIONS.KRANG_REGIONS_UPDATE,
+      },
     }),
     update: c.mutation({
       method: 'PUT',
@@ -77,8 +99,12 @@ export const regionContract = c.router(
         404: z.object({ message: z.string(), code: z.string() }),
       },
       summary: 'Mettre à jour une région',
-      description: 'Met à jour partiellement une région par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Régions'] },
+      description:
+        'Met à jour partiellement une région par son UUID. Retourne 404 si introuvable.',
+      metadata: {
+        tags: ['Régions'],
+        permission: PERMISSIONS.KRANG_REGIONS_UPDATE,
+      },
     }),
     delete: c.mutation({
       method: 'DELETE',
@@ -90,8 +116,12 @@ export const regionContract = c.router(
         404: z.object({ message: z.string(), code: z.string() }),
       },
       summary: 'Supprimer une région',
-      description: 'Supprime une région par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Régions'] },
+      description:
+        'Supprime une région par son UUID. Retourne 404 si introuvable.',
+      metadata: {
+        tags: ['Régions'],
+        permission: PERMISSIONS.KRANG_REGIONS_DELETE,
+      },
     }),
   },
   { pathPrefix: '/api/regions' },

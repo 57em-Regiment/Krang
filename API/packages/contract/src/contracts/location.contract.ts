@@ -1,3 +1,4 @@
+import { PERMISSIONS } from '@57eme-regiment/auth-contracts';
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import {
@@ -19,7 +20,10 @@ export const locationContract = c.router(
       responses: { 200: z.array(LocationSchema) },
       summary: 'Lister les localisations',
       description: 'Retourne la liste de toutes les localisations Foxhole.',
-      metadata: { tags: ['Localisations'] },
+      metadata: {
+        tags: ['Localisations'],
+        permission: PERMISSIONS.KRANG_LOCATIONS_READ,
+      },
     }),
     getById: c.query({
       method: 'GET',
@@ -32,7 +36,10 @@ export const locationContract = c.router(
       summary: 'Récupérer une localisation par son ID',
       description:
         'Retourne une localisation par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Localisations'] },
+      metadata: {
+        tags: ['Localisations'],
+        permission: PERMISSIONS.KRANG_LOCATIONS_READ,
+      },
     }),
     getAllNames: c.query({
       method: 'GET',
@@ -42,7 +49,10 @@ export const locationContract = c.router(
       summary: 'Lister les localisations avec leurs noms',
       description:
         'Retourne la liste des localisations enrichies (région, ville) avec recherche fuzzy optionnelle.',
-      metadata: { tags: ['Localisations'] },
+      metadata: {
+        tags: ['Localisations'],
+        permission: PERMISSIONS.KRANG_LOCATIONS_READ,
+      },
     }),
     getNames: c.query({
       method: 'GET',
@@ -55,7 +65,10 @@ export const locationContract = c.router(
       summary: "Récupérer les noms d'une localisation",
       description:
         'Retourne les noms associés à une localisation par son UUID.',
-      metadata: { tags: ['Localisations'] },
+      metadata: {
+        tags: ['Localisations'],
+        permission: PERMISSIONS.KRANG_LOCATIONS_READ,
+      },
     }),
     create: c.mutation({
       method: 'POST',
@@ -64,7 +77,10 @@ export const locationContract = c.router(
       responses: { 201: LocationSchema },
       summary: 'Créer une localisation',
       description: 'Crée une nouvelle localisation et la retourne.',
-      metadata: { tags: ['Localisations'] },
+      metadata: {
+        tags: ['Localisations'],
+        permission: PERMISSIONS.KRANG_LOCATIONS_CREATE,
+      },
     }),
     createRange: c.mutation({
       method: 'POST',
@@ -73,7 +89,10 @@ export const locationContract = c.router(
       responses: { 201: LocationSchema.array() },
       summary: 'Créer plusieurs localisations',
       description: 'Crée plusieurs localisations en une seule opération.',
-      metadata: { tags: ['Localisations'] },
+      metadata: {
+        tags: ['Localisations'],
+        permission: PERMISSIONS.KRANG_LOCATIONS_CREATE,
+      },
     }),
     upsertRange: c.mutation({
       method: 'POST',
@@ -83,7 +102,10 @@ export const locationContract = c.router(
       summary: 'Upsert plusieurs localisations',
       description:
         'Crée ou met à jour plusieurs localisations en une transaction, matchées par nom.',
-      metadata: { tags: ['Localisations'] },
+      metadata: {
+        tags: ['Localisations'],
+        permission: PERMISSIONS.KRANG_LOCATIONS_UPDATE,
+      },
     }),
     update: c.mutation({
       method: 'PUT',
@@ -97,7 +119,10 @@ export const locationContract = c.router(
       summary: 'Mettre à jour une localisation',
       description:
         'Met à jour partiellement une localisation par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Localisations'] },
+      metadata: {
+        tags: ['Localisations'],
+        permission: PERMISSIONS.KRANG_LOCATIONS_UPDATE,
+      },
     }),
     delete: c.mutation({
       method: 'DELETE',
@@ -111,7 +136,10 @@ export const locationContract = c.router(
       summary: 'Supprimer une localisation',
       description:
         'Supprime une localisation par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Localisations'] },
+      metadata: {
+        tags: ['Localisations'],
+        permission: PERMISSIONS.KRANG_LOCATIONS_DELETE,
+      },
     }),
   },
   { pathPrefix: '/api/locations' },

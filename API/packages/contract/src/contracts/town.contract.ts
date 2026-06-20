@@ -6,6 +6,7 @@ import {
   townParamsSchema,
   updateTownSchema,
 } from '../schemas/town.schema';
+import { PERMISSIONS } from '@57eme-regiment/auth-contracts';
 
 const c = initContract();
 
@@ -17,7 +18,7 @@ export const townContract = c.router(
       responses: { 200: z.array(TownSchema) },
       summary: 'Lister les villes',
       description: 'Retourne la liste de toutes les villes Foxhole.',
-      metadata: { tags: ['Villes'] },
+      metadata: { tags: ['Villes'], permission: PERMISSIONS.KRANG_TOWNS_READ },
     }),
     getById: c.query({
       method: 'GET',
@@ -28,8 +29,9 @@ export const townContract = c.router(
         404: z.object({ message: z.string(), code: z.string() }),
       },
       summary: 'Récupérer une ville par son ID',
-      description: 'Retourne une ville par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Villes'] },
+      description:
+        'Retourne une ville par son UUID. Retourne 404 si introuvable.',
+      metadata: { tags: ['Villes'], permission: PERMISSIONS.KRANG_TOWNS_READ },
     }),
     create: c.mutation({
       method: 'POST',
@@ -38,7 +40,7 @@ export const townContract = c.router(
       responses: { 201: TownSchema },
       summary: 'Créer une ville',
       description: 'Crée une nouvelle ville et la retourne.',
-      metadata: { tags: ['Villes'] },
+      metadata: { tags: ['Villes'], permission: PERMISSIONS.KRANG_TOWNS_CREATE },
     }),
     createRange: c.mutation({
       method: 'POST',
@@ -47,7 +49,7 @@ export const townContract = c.router(
       responses: { 201: TownSchema.array() },
       summary: 'Créer plusieurs villes',
       description: 'Crée plusieurs villes en une seule opération.',
-      metadata: { tags: ['Villes'] },
+      metadata: { tags: ['Villes'], permission: PERMISSIONS.KRANG_TOWNS_CREATE },
     }),
     upsertRange: c.mutation({
       method: 'POST',
@@ -55,8 +57,9 @@ export const townContract = c.router(
       body: createTownSchema.array(),
       responses: { 200: TownSchema.array() },
       summary: 'Upsert plusieurs villes',
-      description: 'Crée ou met à jour plusieurs villes en une transaction, matchées par nom.',
-      metadata: { tags: ['Villes'] },
+      description:
+        'Crée ou met à jour plusieurs villes en une transaction, matchées par nom.',
+      metadata: { tags: ['Villes'], permission: PERMISSIONS.KRANG_TOWNS_UPDATE },
     }),
     update: c.mutation({
       method: 'PUT',
@@ -68,8 +71,9 @@ export const townContract = c.router(
         404: z.object({ message: z.string(), code: z.string() }),
       },
       summary: 'Mettre à jour une ville',
-      description: 'Met à jour partiellement une ville par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Villes'] },
+      description:
+        'Met à jour partiellement une ville par son UUID. Retourne 404 si introuvable.',
+      metadata: { tags: ['Villes'], permission: PERMISSIONS.KRANG_TOWNS_UPDATE },
     }),
     delete: c.mutation({
       method: 'DELETE',
@@ -81,8 +85,9 @@ export const townContract = c.router(
         404: z.object({ message: z.string(), code: z.string() }),
       },
       summary: 'Supprimer une ville',
-      description: 'Supprime une ville par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Villes'] },
+      description:
+        'Supprime une ville par son UUID. Retourne 404 si introuvable.',
+      metadata: { tags: ['Villes'], permission: PERMISSIONS.KRANG_TOWNS_DELETE },
     }),
   },
   { pathPrefix: '/api/towns' },

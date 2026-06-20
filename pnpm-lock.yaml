@@ -11,6 +11,9 @@ importers:
 
   API/packages/contract:
     dependencies:
+      '@57eme-regiment/auth-contracts':
+        specifier: '>=1.13.1'
+        version: 1.13.1(@ts-rest/core@3.53.0-rc.1(@types/node@25.9.1))(zod@4.4.3)
       '@ts-rest/core':
         specifier: 3.53.0-rc.1
         version: 3.53.0-rc.1(@types/node@25.9.1)
@@ -169,6 +172,12 @@ packages:
 
   '@57eme-regiment/auth-contracts@1.12.0':
     resolution: {integrity: sha512-8Y3/qZC4DZW/HeeKK52RAtLuUBtjep6W/NUrVB0VcqaC/qRJaK13o3O/HONR2Mx+ARB1baK1nHm3X0LNc/Xg6Q==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.12.0/e7076c9f2f3e7f780c92529d2169c6e03a55947c}
+    peerDependencies:
+      '@ts-rest/core': '>=3.50.0'
+      zod: '>=3'
+
+  '@57eme-regiment/auth-contracts@1.13.1':
+    resolution: {integrity: sha512-fWC93uVM1qhymYzmMFQUJovU4CNnn2pXAle4D578A0busIYv0wxOXUCZiaQ1CXrClj+tSRq1FRjah8xqvKrk9A==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.13.1/49d45a65b5d8da092ae6f113e18e7c58027dade3}
     peerDependencies:
       '@ts-rest/core': '>=3.50.0'
       zod: '>=3'
@@ -609,6 +618,11 @@ packages:
 snapshots:
 
   '@57eme-regiment/auth-contracts@1.12.0(@ts-rest/core@3.53.0-rc.1(@types/node@25.9.1))(zod@4.4.3)':
+    dependencies:
+      '@ts-rest/core': 3.53.0-rc.1(@types/node@25.9.1)
+      zod: 4.4.3
+
+  '@57eme-regiment/auth-contracts@1.13.1(@ts-rest/core@3.53.0-rc.1(@types/node@25.9.1))(zod@4.4.3)':
     dependencies:
       '@ts-rest/core': 3.53.0-rc.1(@types/node@25.9.1)
       zod: 4.4.3

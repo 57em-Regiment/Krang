@@ -3,6 +3,7 @@ import { logger } from '@/config/logger';
 import qs from 'qs';
 import '@57eme-regiment/auth-server';
 import { createErrorHandler } from '@57eme-regiment/nabu-errors';
+import { configurePermissionChecker } from '@57eme-regiment/nabu-fastify';
 import cors from '@fastify/cors';
 import fastifySwagger from '@fastify/swagger';
 import {
@@ -17,8 +18,11 @@ import { locationRoutes } from './services/location/location.route';
 import { maintenanceRoutes } from './services/maintenance/maintenance.route';
 import { regionRoutes } from './services/region/region.route';
 import { townRoutes } from './services/town/town.route';
+import { requirePermission } from '@57eme-regiment/auth-server';
 
 export function buildApp() {
+  configurePermissionChecker(requirePermission);
+
   const app = Fastify({
     logger: { level: 'error' },
     ignoreTrailingSlash: true,

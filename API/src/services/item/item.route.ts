@@ -9,9 +9,7 @@ export async function itemRoutes(app: FastifyInstance) {
   const ctrl = container.resolve(ItemController);
   const server = app.withTypeProvider<ZodTypeProvider>();
 
-  declareRoute(server, itemContract.getAll, ctrl.getAll.bind(ctrl), {
-    // preHandler: requirePermission(PERMISSIONS.KRANG_ITEM_READ),
-  });
+  declareRoute(server, itemContract.getAll, ctrl.getAll.bind(ctrl));
   declareRoute(server, itemContract.getById, ctrl.getById.bind(ctrl));
   declareRoute(server, itemContract.create, ctrl.create.bind(ctrl));
   declareRoute(server, itemContract.upsert, ctrl.upsert.bind(ctrl));

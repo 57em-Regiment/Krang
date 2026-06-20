@@ -1,3 +1,4 @@
+import { PERMISSIONS } from '@57eme-regiment/auth-contracts';
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import {
@@ -20,7 +21,7 @@ export const itemContract = c.router(
       summary: 'Lister les items',
       description:
         'Retourne la liste de tous les items Foxhole. Filtrable par `search` (name/shortName, insensible à la casse).',
-      metadata: { tags: ['Items'] },
+      metadata: { tags: ['Items'], permission: PERMISSIONS.KRANG_ITEMS_READ },
     }),
     getById: c.query({
       method: 'GET',
@@ -33,7 +34,7 @@ export const itemContract = c.router(
       summary: 'Récupérer un item par son ID',
       description:
         'Retourne un item par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Items'] },
+      metadata: { tags: ['Items'], permission: PERMISSIONS.KRANG_ITEMS_READ },
     }),
     create: c.mutation({
       method: 'POST',
@@ -42,7 +43,7 @@ export const itemContract = c.router(
       responses: { 201: ItemSchema },
       summary: 'Créer un item',
       description: 'Crée un nouvel item et le retourne.',
-      metadata: { tags: ['Items'] },
+      metadata: { tags: ['Items'], permission: PERMISSIONS.KRANG_ITEMS_CREATE },
     }),
     upsert: c.mutation({
       method: 'POST',
@@ -52,7 +53,7 @@ export const itemContract = c.router(
       summary: 'Upsert un item',
       description:
         "Crée l'item s'il n'existe pas (matché par nom), sinon le met à jour. Retourne l'item résultant.",
-      metadata: { tags: ['Items'] },
+      metadata: { tags: ['Items'], permission: PERMISSIONS.KRANG_ITEMS_MANAGE },
     }),
     upsertRange: c.mutation({
       method: 'POST',
@@ -62,7 +63,7 @@ export const itemContract = c.router(
       summary: 'Upsert plusieurs items',
       description:
         'Crée ou met à jour plusieurs items en une transaction, matchés par nom. Retourne les items résultants.',
-      metadata: { tags: ['Items'] },
+      metadata: { tags: ['Items'], permission: PERMISSIONS.KRANG_ITEMS_MANAGE },
     }),
     update: c.mutation({
       method: 'PUT',
@@ -76,7 +77,7 @@ export const itemContract = c.router(
       summary: 'Mettre à jour un item',
       description:
         'Met à jour partiellement un item par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Items'] },
+      metadata: { tags: ['Items'], permission: PERMISSIONS.KRANG_ITEMS_MANAGE },
     }),
     delete: c.mutation({
       method: 'DELETE',
@@ -90,7 +91,7 @@ export const itemContract = c.router(
       summary: 'Supprimer un item',
       description:
         'Supprime un item par son UUID. Retourne 404 si introuvable.',
-      metadata: { tags: ['Items'] },
+      metadata: { tags: ['Items'], permission: PERMISSIONS.KRANG_ITEMS_DELETE },
     }),
   },
   { pathPrefix: '/api/items' },
