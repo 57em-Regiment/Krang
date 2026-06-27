@@ -16,8 +16,7 @@
   "license": "ISC",
   "packageManager": "pnpm@11.1.2",
   "dependencies": {
-    "@57eme-regiment/auth-contracts": "^1.13.0",
-    "@57eme-regiment/auth-server": "^1.7.0",
+    "@57eme-regiment/auth-package": "^2.0.1",
     "@57eme-regiment/krang-api-contract": "workspace:*",
     "@57eme-regiment/nabu-errors": "workspace:*",
     "@57eme-regiment/nabu-fastify": "workspace:*",

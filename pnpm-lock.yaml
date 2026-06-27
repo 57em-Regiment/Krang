@@ -63,8 +63,8 @@ importers:
   nabu/packages/frontend-utils:
     dependencies:
       '@57eme-regiment/auth-contracts':
-        specifier: '>=1'
-        version: 1.12.0(@ts-rest/core@3.53.0-rc.1(@types/node@25.9.1))(zod@4.4.3)
+        specifier: '>=1.13.2'
+        version: 1.13.2(@ts-rest/core@3.53.0-rc.1(@types/node@25.9.1))(zod@4.4.3)
       '@tabler/icons-react':
         specifier: '>=3'
         version: 3.44.0(react@19.2.7)
@@ -178,6 +178,12 @@ packages:
 
   '@57eme-regiment/auth-contracts@1.13.1':
     resolution: {integrity: sha512-fWC93uVM1qhymYzmMFQUJovU4CNnn2pXAle4D578A0busIYv0wxOXUCZiaQ1CXrClj+tSRq1FRjah8xqvKrk9A==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.13.1/49d45a65b5d8da092ae6f113e18e7c58027dade3}
+    peerDependencies:
+      '@ts-rest/core': '>=3.50.0'
+      zod: '>=3'
+
+  '@57eme-regiment/auth-contracts@1.13.2':
+    resolution: {integrity: sha512-dG3oV+ggdFzxwFlvxYcyf6aTOkuU8fRb1EKjmMDaul1TW4nP7g4PZQO0S1KR5Rl2qsMutTrcVviU0EiXV7+9OA==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.13.2/9a7d27a1b24210063f97dc2dff13f01d8c85cf24}
     peerDependencies:
       '@ts-rest/core': '>=3.50.0'
       zod: '>=3'
@@ -623,6 +629,11 @@ snapshots:
       zod: 4.4.3
 
   '@57eme-regiment/auth-contracts@1.13.1(@ts-rest/core@3.53.0-rc.1(@types/node@25.9.1))(zod@4.4.3)':
+    dependencies:
+      '@ts-rest/core': 3.53.0-rc.1(@types/node@25.9.1)
+      zod: 4.4.3
+
+  '@57eme-regiment/auth-contracts@1.13.2(@ts-rest/core@3.53.0-rc.1(@types/node@25.9.1))(zod@4.4.3)':
     dependencies:
       '@ts-rest/core': 3.53.0-rc.1(@types/node@25.9.1)
       zod: 4.4.3
