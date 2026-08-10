@@ -1,4 +1,5 @@
 packages:
+  - 'API'
   - 'API/packages/*'
   - 'nabu/packages/*'
 

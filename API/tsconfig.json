@@ -16,6 +16,7 @@
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
+      "@57eme-regiment/auth-server": ["node_modules/@57eme-regiment/auth-package/dist/server/index.d.ts"],
       "@/*": ["src/*"],
       "@57eme-regiment/nabu-errors": ["../nabu/packages/errors/src/index.ts"],
       "@57eme-regiment/nabu-fastify": ["../nabu/packages/fastify/src/index.ts"],

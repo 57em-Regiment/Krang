@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/main.js",
   "scripts": {
-    "dev": "pnpm --filter @57eme-regiment/krang-api-contract dev & ts-node-dev --respawn -r tsconfig-paths/register src/main.ts --watch packages/contract/src",
+    "dev": "pnpm --filter @57eme-regiment/krang-api-contract dev & tsx watch src/main.ts",
     "build": "pnpm --filter @57eme-regiment/krang-api-contract build && tsc --project tsconfig.json",
     "start": "node dist/main.js",
     "typecheck": "tsc --noEmit",
@@ -47,6 +47,7 @@
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.23.1",
     "typescript": "^6.0.0"
   }
 }
